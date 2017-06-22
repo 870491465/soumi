@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBalanceTable extends Migration
+class CreateHedegTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,12 @@ class CreateBalanceTable extends Migration
     public function up()
     {
         //
-        Schema::create('balances', function(Blueprint $table) {
+        Schema::create('hedges', function(Blueprint $table) {
            $table->increments('id');
             $table->integer('account_id');
-            $table->decimal('amount')->nullable(0);
-            $table->decimal('total')->nullable(0);
-            $table->decimal('available')->nullable(0);
+            $table->decimal('amount')->default(0);
+            $table->integer('balance_transaction_id')->nullable();
+            $table->integer('status');
             $table->timestamps();
         });
     }
@@ -32,5 +32,6 @@ class CreateBalanceTable extends Migration
     public function down()
     {
         //
+        Schema::drop('hedges');
     }
 }

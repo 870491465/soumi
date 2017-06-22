@@ -20,3 +20,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/deposit', 'PaymentApiController@store');
+
+/**
+ * 获取登录信息
+ */
+Route::get('/account/login/{mobile}', 'AccountApiController@userLogin');
+
+/**
+ * 用户升级
+ */
+Route::post('/account/promote', 'AccountApiController@promote');
+
+/**
+ *  获取用户余额
+ */
+Route::get('/account/balance/{mobile}', 'AccountApiController@accountBalance');
+
+/**
+ * 用户对冲
+ */
+Route::post('/account/hedge/{mobile}', 'AccountApiController@hedge');

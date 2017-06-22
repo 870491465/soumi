@@ -23,7 +23,7 @@ class AccountController extends Controller
         $account_id = Auth::user()->account_id;
         $customers = Customer::where('account_id', $account_id)->get();
        // dd($customers);
-        return view('customer.index', ['customers' => $customers]);
+        return view('customer.index', ['customers' => $customers, 'title' => '我的商户']);
     }
 
     public function create()
@@ -182,7 +182,7 @@ class AccountController extends Controller
         } else {
             $account = Account::find($id);
         }
-        return view('customer.index', ['account' => $account, 'customers' => $customers]);
+        return view('customer.index', ['account' => $account, 'customers' => $customers, 'title' => '商户权益']);
     }
 
     public function profile()

@@ -3,7 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>后台管理</title>
+    <title>嗖咪前台</title>
     <script src="/js/components/jquery.min.js"></script>
 
     <link href="/css/components/semantic.min.css" rel="stylesheet">
@@ -69,7 +69,7 @@
             padding-top: 0;
         }
         .user-area-wrap .ui.grid .column.main-content {
-            width: 85%;
+            width: 100%;
             padding-left: 0;
             padding-top: 20px;
         }
@@ -155,58 +155,44 @@
     </style>
 </head>
 <body class="pushable">
-@if(session('role') == 'Admin')
-    @include('partials.admin_sidebar')
-@else
-    @include('partials.admin_sidebar')
-@endif
+@section('left-sidebar')
+
+@show
 <div class="pusher">
-<div class="top">
-    @include('partials.top')
-</div>
-<div class="body">
-    <div class="body-content">
+
+    <div class="top">
+        @section('top')
+        @show
+    </div>
+    <div class="body">
+        <div class="body-content">
             <div class="user-area-wrap">
                 <div class="ui stackable grid">
-                    <div class="column left-navigation">
-                        @if(session('role') == 'Admin')
-                            @include('partials.admin_leftmenu')
-                        @else
-                            @include('partials.leftmenu')
-                        @endif
-                    </div>
                     <div class="column main-content">
-                        @section('content')
+                        @section('main-content')
+
                         @show
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 </div>
+<div class="bottom">
+@section('bottom-sidebar')
+
+@show
 </div>
 @section('modal')
 @show
 <script>
     $(document).ready(function(){
-        reset();
         $('.checkbox').checkbox()
-        $('.ui.dropdown')
-                .dropdown()
-        ;
-
     });
-    function reset() {
-        var w = $(window).width();
-        if (w <770) {
-            $('.column.left-navigation').hide();
-        } else {
-            $(".column.left-navigation").show();
-        }
-    }
-    $('.ui.labeled.sidebar')
-    .sidebar('attach events', '#sidebar_menu')
-
 </script>
 <script src="/js/components/index.js"></script>
+@section('script')
+
+@show
 </body>
 </html>

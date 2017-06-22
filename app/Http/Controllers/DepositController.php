@@ -36,6 +36,7 @@ class DepositController extends Controller
         $deposit->upgrade_type_id = $upgrade->type_id;
         $deposit->save();
 
+        return view('checkout.index', ['amount' => $amount, 'title' => $upgrade->type->direction]);
         //充值页面
     }
 

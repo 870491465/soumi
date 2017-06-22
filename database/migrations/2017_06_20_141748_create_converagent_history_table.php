@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBalanceTable extends Migration
+class CreateConveragentHistoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,11 @@ class CreateBalanceTable extends Migration
     public function up()
     {
         //
-        Schema::create('balances', function(Blueprint $table) {
+        Schema::create('convertagent_historys', function(Blueprint $table) {
            $table->increments('id');
+            $table->integer('before_agent');
+            $table->integer('after_agent');
             $table->integer('account_id');
-            $table->decimal('amount')->nullable(0);
-            $table->decimal('total')->nullable(0);
-            $table->decimal('available')->nullable(0);
             $table->timestamps();
         });
     }
@@ -32,5 +31,6 @@ class CreateBalanceTable extends Migration
     public function down()
     {
         //
+        Schema::drop('convertagent_historys');
     }
 }

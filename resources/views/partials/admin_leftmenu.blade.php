@@ -2,18 +2,14 @@
     <div class="item">
     </div>
     <div class="item">
-        <a href="/admin/authentication">
-            认证审核
-        </a>
-        <i class="spy red icon"></i>
-    </div>
-    <div class="item">
-        <a href="/admin/declaration">报单审核</a>
-        <i class="add user icon"></i>
-    </div>
-    <div class="item">
         <a href="/admin/customer">商户列表</a>
         <i class="users icon"></i>
+    </div>
+    <div class="item">
+        <a href="/admin/customer/upgrade">
+            升级记录
+        </a>
+        <i class="spy red icon"></i>
     </div>
     <div class="item">
         <a href="/admin/deposit">充值记录</a>

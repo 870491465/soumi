@@ -10,6 +10,7 @@ class BalanceTransactionType extends BaseModel
     const TRANSFER = 2;
     const BONUS = 3;
     const DECLARATION =4;
+    const HEGEG = 5;
     //
     protected $table = 'balance_transaction_types';
 

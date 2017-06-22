@@ -9,6 +9,8 @@ class User extends BaseModel
     //
     protected $table = 'users';
 
+    protected $fillable = ['name', 'mobile', 'password', 'role_id', 'account_id'];
+
     public function account()
     {
         return $this->hasOne(Account::class);

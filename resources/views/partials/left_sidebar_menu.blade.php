@@ -1,4 +1,4 @@
-<div class="ui inverted labeled icon left inline vertical sidebar menu uncover">
+<div class="ui inverted labeled icon left inline vertical sidebar menu uncover" id="left_sidebar">
         <a href="/account/profile" class="item">
             <i class="spy red icon"></i>
             实名认证
@@ -35,4 +35,5 @@
             <i class="setting icon"></i>
             系统设置
         </a>
+
 </div>

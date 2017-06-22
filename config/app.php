@@ -178,6 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 
+        lyt8384\Pingpp\PingppServiceProvider::class,
+
     ],
 
     /*
@@ -228,6 +230,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
+
+        'Pingpp' => lyt8384\Pingpp\Facades\Pingpp::class,
     ],
 
 ];

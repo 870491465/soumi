@@ -13,8 +13,11 @@ class Customer extends BaseModel
         return $this->hasOne(Account::class, 'id', 'child_id');
     }
 
+
     public function primaryAccount()
     {
         return $this->hasOne(Account::class, 'id', 'account_id');
     }
+
+
 }

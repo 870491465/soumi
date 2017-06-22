@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User;
 class Account extends BaseModel
 {
     //
-    protected $fillable = ['mobile', 'business_name'];
+    protected $fillable = ['mobile', 'business_name', 'person_name', 'identity_card'];
 
     public function balance()
     {

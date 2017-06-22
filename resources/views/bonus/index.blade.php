@@ -25,7 +25,7 @@
             <td class="three wide">{!! $bonus->type->name !!}</td>
             <td class="tow wide">{!! $bonus->amount !!}</td>
             <td class="two wide">{!! $bonus->type->deposit_type->name !!}</td>
-            <td class="two wide">{!! $bonus->amount !!}</td>
+            <td class="two wide">{!! $bonus->created_at !!}</td>
         </tr>
             <?php $i++ ?>
          @endforeach

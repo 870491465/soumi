@@ -102,10 +102,37 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Adm
     Route::get('/customer', 'CustomerController@index');
     Route::post('/customer', 'CustomerController@store');
     Route::post('/customer/search', 'CustomerController@search');
+    Route::get('/customer/upgrade', 'UpgradeHistoryController@index');
     Route::get('/customer/{id}', [
        'as' => 'getCustomer',
         'uses' => 'CustomerController@show'
     ]);
+    Route::post('/customer/update/{id}', 'CustomerController@update');
+    Route::get('/customer/setting/{id}', [
+        'as' => 'settingCustomer',
+        'uses' => 'CustomerController@setting'
+    ]);
+    /**
+     * 用户升级
+     */
+
+
+    Route::get('/customer/upgrade/{id}', [
+       'as' => 'customerUpgrade',
+        'uses' => 'CustomerController@upgrade'
+    ]);
+    Route::post('/customer/upgrade/{id}', [
+       'as' => 'postCustomerUpgrade',
+        'uses' => 'UpgradeHistoryController@store'
+    ]);
+
+    Route::get('/customer/convert/{id}', [
+        'as' => 'customerConvertAgent',
+        'uses' => 'CustomerController@convertAgent'
+    ]);
+
+    Route::post('/customer/convert', 'CustomerController@postConvert');
+
 
     Route::get('/bonus', 'BonusController@index');
     Route::post('/bonus/search', 'BonusController@search');

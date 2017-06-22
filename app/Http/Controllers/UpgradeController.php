@@ -14,8 +14,9 @@ class UpgradeController extends Controller
     public function index()
     {
         $account_id = Auth::user()->account_id;
+        $role_id = Auth::user()->role_id;
         $upgrades = Upgrade::where('account_id', $account_id)->get();
-        $upgrade_types = UpgradeType::all();
+        $upgrade_types = UpgradeType::where('role_id','>', $role_id)->get();
 
         return view('upgrade.index', ['upgrades' => $upgrades, 'upgrade_types' => $upgrade_types, 'i' => 1]);
     }
@@ -30,7 +31,7 @@ class UpgradeController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => '提交成功，我们会抓紧审核',
+            'message' => '提交成功',
             'redirectUrl' => ''
         ]);
 

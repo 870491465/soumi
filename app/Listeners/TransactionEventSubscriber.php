@@ -21,13 +21,14 @@ class TransactionEventSubscriber
     public function subscribe($events)
     {
         $events->listen(
-            ['App\Events\DepositCreated',
-                'App\Events\TransferCreated',
+            [  'App\Events\TransferCreated',
                 'App\Events\BonusCreated',
                 'App\Events\DeclarationCreated'
                 ],
             'App\Listeners\TransactionEventSubscriber@Transaction'
         );
+        $events->listen('App\Events\UpgradeHistoryCreated',
+            'App\Listeners\TransactionEventSubscriber@handleUpgradeHistoryCreated');
         $events->listen(
             'App\Events\BalanceTransactionStatusUpdate',
             'App\Listeners\TransactionEventSubscriber@handleBalanceTransactionUpdate'
@@ -44,6 +45,15 @@ class TransactionEventSubscriber
             'App\Events\DeclarationStatusUpdate',
             'App\Listeners\TransactionEventSubscriber@handleBalance'
         );
+    }
+
+    /**
+     * @param $event
+     */
+    public function handleUpgradeHistoryCreated($event)
+    {
+        $model = $event->model;
+
     }
 
     public function handleBalanceTransactionUpdate($event)
