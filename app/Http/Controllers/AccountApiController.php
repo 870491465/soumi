@@ -92,6 +92,7 @@ class AccountApiController extends Controller
                     $deposit = new Deposit();
                     $deposit->account_id = $account->id;
                     $deposit->amount = $amount;
+                    $deposit->upgrade_type_id = $role_id;
                     $deposit->deposit_type_id = DepositType::PULL_USE;
                     $deposit->status_id = DepositStatus::SUCCESS;
                     $deposit->save();
@@ -99,7 +100,7 @@ class AccountApiController extends Controller
                     $upgrade_history = UpgradeHistory::create([
                         'account_id' => $account->id,
                         'before_role' => $role_id,
-                        'after_role' => $role_id, 'is_have_bonus' => 1]);
+                        'after_role' => $role_id, 'is_have_bonus' => 0]);
 
                     DB::commit();
                     return response()->json([
@@ -138,7 +139,7 @@ class AccountApiController extends Controller
                     $upgrade_history = UpgradeHistory::create([
                         'account_id' => $user->account_id,
                         'before_role' => $before_role,
-                        'after_role' => $role_id, 'is_have_bonus' => 1]);
+                        'after_role' => $role_id, 'is_have_bonus' => 0]);
 
                     $user->role_id = $role_id;
                     $user->save();
@@ -146,6 +147,7 @@ class AccountApiController extends Controller
                     $deposit = new Deposit();
                     $deposit->account_id = $user->account_id;
                     $deposit->amount = $amount;
+                    $deposit->upgrade_type_id = $role_id;
                     $deposit->deposit_type_id = DepositType::PULL_USE;
                     $deposit->status_id = DepositStatus::SUCCESS;
                     $deposit->save();
@@ -187,6 +189,49 @@ class AccountApiController extends Controller
         $new_sig = md5($msg);
         return $new_sig;
     }
+
+    public function upgradeAmount(Request $request, $mobile)
+    {
+        $rules = ['mobile' => 'required',
+            'api_sig' => 'required'];
+        $messages = [
+            'mobile.required' => '手机号不能为空',
+            'api_sig.required' => '签名不能为空'
+        ];
+        $validate = Validator::make($request->all(), $rules, $messages);
+        if ($validate->fails()) {
+            return response()->json([
+                'result_code' => 405,
+                'message' => $validate->messages()->toArray()
+            ]);
+        }
+
+        $api_sig = $request->get('api_sig');
+        $new_sig = $this->api_sig($mobile);
+      /*  if ($new_sig == $api_sig) {
+            $account = Account::where('mobile', $mobile)->first();
+            //如果存在
+            if ($account) {
+                $role_id = $account->user->role_id;
+                if ($role_id == 2) {
+                    return response()->json([
+                        'result_code' => 200,
+                        'upgrade_amount' => 30000,
+                    ]);
+                } else {
+                    return response()->json([
+                        'result_code' => 200,
+                        'upgrade_amount' => 0,
+                    ]);
+                }
+            } else {
+
+            }
+        } else {
+
+        }*/
+    }
+
 
     public function userLogin(Request $request, $mobile)
     {

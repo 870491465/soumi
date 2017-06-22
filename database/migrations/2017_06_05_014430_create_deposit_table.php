@@ -20,10 +20,8 @@ class CreateDepositTable extends Migration
             $table->decimal('amount');
             $table->integer('status_id');
             $table->integer('upgrade_type_id')->default(0);
-            $table->integer('deposit_type_id');
-            $table->string('deposit_id');
-            $table->string('transaction_id');
-            $table->string('payment_method')->nullable();
+            $table->integer('deposit_type_id')->default(0);
+            $table->string('balance_transaction_id')->nullable();
             $table->timestamps();
         });
     }

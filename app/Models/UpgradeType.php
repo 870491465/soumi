@@ -8,4 +8,5 @@ class UpgradeType extends Model
 {
     //
     protected $table = 'upgrade_types';
+    public $fillable =  ['name', 'role_id', 'amount'];
 }

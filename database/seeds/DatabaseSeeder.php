@@ -24,5 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminAccountSeeder::class);
         $this->call(DeclarationStatusSeeder::class);
         $this->call(LevelSeeder::class);
+        $this->call(UpgradeTypeSeeder::class);
     }
 }

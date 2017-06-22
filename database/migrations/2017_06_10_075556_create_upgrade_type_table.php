@@ -19,7 +19,7 @@ class CreateUpgradeTypeTable extends Migration
             $table->integer('role_id');
             $table->string('name');
             $table->decimal('amount');
-            $table->string('decription');
+            $table->string('decription')->nullable();
             $table->timestamps();
         });
     }
