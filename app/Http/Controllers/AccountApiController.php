@@ -190,6 +190,20 @@ class AccountApiController extends Controller
 
     public function userLogin(Request $request, $mobile)
     {
+        $rules = ['mobile' => 'required',
+            'api_sig' => 'required'];
+        $messages = [
+            'mobile.required' => '手机号不能为空',
+            'api_sig.required' => '签名不能为空'
+        ];
+        $validate = Validator::make($request->all(), $rules, $messages);
+        if ($validate->fails()) {
+            return response()->json([
+                'result_code' => 405,
+                'message' => $validate->messages()->toArray()
+            ]);
+        }
+
         $account = Account::where('mobile', $mobile)->first();
         $api_sig = $request->get('api_sig');
         if ($account) {
@@ -223,6 +237,20 @@ class AccountApiController extends Controller
      */
     public function accountBalance(Request $request, $mobile)
     {
+        $rules = [
+            'mobile' => 'required',
+            'api_sig' => 'required'];
+        $messages = [
+            'mobile.required' => '手机号不能为空',
+            'api_sig.required' => '签名不能为空'
+        ];
+        $validate = Validator::make($request->all(), $rules, $messages);
+        if ($validate->fails()) {
+            return response()->json([
+                'result_code' => 405,
+                'message' => $validate->messages()->toArray()
+            ]);
+        }
         $account = Account::where('mobile', $mobile)->first();
         $api_sig = $request->get('api_sig');
         if ($account) {
@@ -263,8 +291,25 @@ class AccountApiController extends Controller
     /**
      * 账户对冲
      */
-    public function hedge(Request $request, $mobile) {
-
+    public function hedge(Request $request, $mobile)
+    {
+        $rules = [
+            'mobile' => 'required',
+             'api_sig' => 'required',
+            'amount' => 'required|numeric'];
+        $messages = [
+            'mobile.required' => '手机号不能为空',
+            'api_sig.required' => '签名不能为空',
+            'amount.required' => '金额不能为空',
+            'amount.numeric' => '金额只能为数字'
+        ];
+        $validate = Validator::make($request->all(), $rules, $messages);
+        if ($validate->fails()) {
+            return response()->json([
+                'result_code' => 405,
+                'message' => $validate->messages()->toArray()
+            ]);
+        }
         $api_sig = $request->get('api_sig');
         $amount = $request->get('amount');
 
@@ -292,8 +337,5 @@ class AccountApiController extends Controller
                 'message' => '资源不存在'
             ]);
         }
-
-
-
     }
 }
