@@ -33,28 +33,24 @@ class BalanceJob implements ShouldQueue
      */
     public function handle()
     {
-        $type = $this->model->balance_transaction_type_id;
-        Log::info('type='. $type);
-        if ($type == BalanceTransactionType::BONUS) {
-            $account_id = $this->model->account_id;
-            $amount = $this->model->amount;
-            Log::info('amount='. $amount);
-            $balance = Balance::where('account_id', $account_id)->first();
-            if (!$balance) {
-                $balance = new Balance();
-                $balance->account_id = $account_id;
-                $balance->total = $amount;
-                $balance->amount = $amount;
-                $balance->save();
-            }
-            else
-            {
-                $old_total = $balance->total;
-                $old_amount = $balance->amount;
-                $balance->total = $old_total + $amount;
-                $balance->amount = $old_amount + $amount;
-                $balance->save();
-            }
+        $account_id = $this->model->account_id;
+        $amount = $this->model->amount;
+        Log::info('amount='. $amount);
+        $balance = Balance::where('account_id', $account_id)->first();
+        if (!$balance) {
+            $balance = new Balance();
+            $balance->account_id = $account_id;
+            $balance->total = $amount;
+            $balance->amount = $amount;
+            $balance->save();
+        }
+        else
+        {
+            $old_total = $balance->total;
+            $old_amount = $balance->amount;
+            $balance->total = $old_total + $amount;
+            $balance->amount = $old_amount + $amount;
+            $balance->save();
         }
         //
     }

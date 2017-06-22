@@ -190,24 +190,15 @@ class AccountApiController extends Controller
         return $new_sig;
     }
 
-    public function upgradeAmount(Request $request, $mobile)
+    public function upgradeAmount()
     {
-        $rules = ['mobile' => 'required',
-            'api_sig' => 'required'];
-        $messages = [
-            'mobile.required' => '手机号不能为空',
-            'api_sig.required' => '签名不能为空'
-        ];
-        $validate = Validator::make($request->all(), $rules, $messages);
-        if ($validate->fails()) {
-            return response()->json([
-                'result_code' => 405,
-                'message' => $validate->messages()->toArray()
-            ]);
-        }
 
-        $api_sig = $request->get('api_sig');
-        $new_sig = $this->api_sig($mobile);
+        $upgrade = UpgradeType::select('amount', 'role_id', 'name')->get();
+        return response()->json([
+           'result_code' => 200,
+            'upgrade_type' => $upgrade->toArray()
+        ]);
+
       /*  if ($new_sig == $api_sig) {
             $account = Account::where('mobile', $mobile)->first();
             //如果存在

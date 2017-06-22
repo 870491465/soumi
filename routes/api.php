@@ -40,3 +40,9 @@ Route::get('/account/balance/{mobile}', 'AccountApiController@accountBalance');
  * 用户对冲
  */
 Route::post('/account/hedge/{mobile}', 'AccountApiController@hedge');
+
+/**
+ * 获取升级金额
+ */
+
+Route::get('/upgrade/amount', 'AccountApiController@upgradeAmount');

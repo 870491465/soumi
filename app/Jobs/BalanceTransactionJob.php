@@ -10,6 +10,7 @@ use App\Models\Bonus;
 use App\Models\Declaration;
 use App\Models\DeclarationStatus;
 use App\Models\Deposit;
+use App\Models\DepositStatus;
 use App\Models\Transfer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -51,17 +52,20 @@ class BalanceTransactionJob implements ShouldQueue
                 try
                 {
                     Log::info($this->model);
-                    $balance_transaction = new BalanceTransaction();
-                    $balance_transaction->account_id = $this->model->account_id;
-                    $balance_transaction->amount = $this->model->amount;
-                    $balance_transaction->balance_transaction_type_id = BalanceTransactionType::DEPOSIT;
-                    $balance_transaction->status_id = BalanceTransactionStatus::CREATED;
-                    $balance_transaction->save();
+                    if ($this->model->status_id == DepositStatus::SUCCESS) {
+                        $balance_transaction = new BalanceTransaction();
+                        $balance_transaction->account_id = $this->model->account_id;
+                        $balance_transaction->amount = $this->model->amount;
+                        $balance_transaction->balance_transaction_type_id = BalanceTransactionType::DEPOSIT;
+                        $balance_transaction->status_id = BalanceTransactionStatus::PENDING;
+                        $balance_transaction->save();
 
-                    $deposit_id = $this->model->id;
-                    $deposit = Deposit::find($deposit_id);
-                    $deposit->balance_transaction_id = $balance_transaction->id;
-                    $deposit->save();
+                        $deposit_id = $this->model->id;
+                        $deposit = Deposit::find($deposit_id);
+                        $deposit->balance_transaction_id = $balance_transaction->id;
+                        $deposit->save();
+                    }
+
 
                     DB::commit();
                 } catch(Exception $e)
@@ -118,6 +122,7 @@ class BalanceTransactionJob implements ShouldQueue
                     DB::rollback();
             }
         }
+
         if ($class_name == 'Declaration') {
             DB::beginTransaction();
             try {

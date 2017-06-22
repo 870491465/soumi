@@ -52,12 +52,11 @@ class DepositSuccessJob implements ShouldQueue
         try
         {
             //更新申请通道状态
-            $upgrade = Upgrade::where('account_id', $account_id)->where('type_id', $upgrade_type_id)->first();
+            /*$upgrade = Upgrade::where('account_id', $account_id)->where('type_id', $upgrade_type_id)->first();
             $upgrade->status = 2 ;
-            $upgrade->save();
+            $upgrade->save();*/
 
             //更新用户权限
-            $role_id = UpgradeType::find($upgrade_type_id)->role_id;
             $user = User::where('account_id', $account_id)->first();
             $user->role_id = $role_id;
             $user->save();
