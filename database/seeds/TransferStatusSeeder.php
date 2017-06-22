@@ -16,14 +16,15 @@ class TransferStatusSeeder extends Seeder
             ['name' => 'pending' , 'display_name' => '待审'],
             ['name' => 'faild' ,'display_name' => '失败'],
             ['name' => 'success', 'display_name' => '成功'],
-            ['name' => 'cancel', 'display_nae' => '取消']
+            ['name' => 'cancel', 'display_name' => '取消']
         ];
 
         DB::table('transfer_statuses')->delete();
         $i = 1;
         foreach($statuses as $status)
         {
-            \App\Models\TransferStatus::create(['id' => $i, 'name' => $status->name, 'display_name' => $status->display_name]);
+            $status['id'] = $i;
+            \App\Models\TransferStatus::create($status);
             $i++;
         }
     }
