@@ -190,14 +190,46 @@ class AccountApiController extends Controller
         return $new_sig;
     }
 
-    public function upgradeAmount()
+    public function upgradeAmount(Request $request, $mobile)
     {
+        if (!isset($mobile)) {
+           return  response()->json([
+                'result_code' => 405,
+                'message' => '手机号不能为空'
+            ]);
+        }
+        $rules = [
+            'api_sig' => 'required'];
+        $messages = [
+            'api_sig.required' => '签名不能为空'
+        ];
+        $validate = Validator::make($request->all(), $rules, $messages);
+        if ($validate->fails()) {
+            return response()->json([
+                'result_code' => 405,
+                'message' => $validate->messages()->toArray()
+            ]);
+        }
 
-        $upgrade = UpgradeType::select('amount', 'role_id', 'name')->get();
-        return response()->json([
-           'result_code' => 200,
-            'upgrade_type' => $upgrade->toArray()
-        ]);
+        $account = Account::where('mobile', $mobile)->first();
+        if (!$account) {
+            $upgrade = UpgradeType::select('amount', 'role_id', 'name')->get();
+            return response()->json([
+                'result_code' => 200,
+                'upgrade_type' => $upgrade->toArray()
+            ]);
+        } else {
+            $api_sig = $request->get('api_sig');
+            $new_sig = $this->api_sig($mobile);
+            if ($new_sig == $api_sig) {
+
+            } else {
+                return response()->json([
+                    'result_code' => 401,
+                    'message' => '签名错误'
+                ]);
+            }
+        }
 
       /*  if ($new_sig == $api_sig) {
             $account = Account::where('mobile', $mobile)->first();
@@ -226,10 +258,15 @@ class AccountApiController extends Controller
 
     public function userLogin(Request $request, $mobile)
     {
-        $rules = ['mobile' => 'required',
+        if (!isset($mobile)) {
+            return  response()->json([
+                'result_code' => 405,
+                'message' => '手机号不能为空'
+            ]);
+        }
+        $rules = [
             'api_sig' => 'required'];
         $messages = [
-            'mobile.required' => '手机号不能为空',
             'api_sig.required' => '签名不能为空'
         ];
         $validate = Validator::make($request->all(), $rules, $messages);
@@ -273,11 +310,16 @@ class AccountApiController extends Controller
      */
     public function accountBalance(Request $request, $mobile)
     {
+        if (!isset($mobile)) {
+            return  response()->json([
+                'result_code' => 405,
+                'message' => '手机号不能为空'
+            ]);
+        }
+
         $rules = [
-            'mobile' => 'required',
             'api_sig' => 'required'];
         $messages = [
-            'mobile.required' => '手机号不能为空',
             'api_sig.required' => '签名不能为空'
         ];
         $validate = Validator::make($request->all(), $rules, $messages);
@@ -329,12 +371,16 @@ class AccountApiController extends Controller
      */
     public function hedge(Request $request, $mobile)
     {
+        if (!isset($mobile)) {
+            return  response()->json([
+                'result_code' => 405,
+                'message' => '手机号不能为空'
+            ]);
+        }
         $rules = [
-            'mobile' => 'required',
              'api_sig' => 'required',
             'amount' => 'required|numeric'];
         $messages = [
-            'mobile.required' => '手机号不能为空',
             'api_sig.required' => '签名不能为空',
             'amount.required' => '金额不能为空',
             'amount.numeric' => '金额只能为数字'
