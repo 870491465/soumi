@@ -14,6 +14,11 @@ class Bonus extends BaseModel
         return $this->belongsTo(Account::class, 'account_id');
     }
 
+    public function childAccount()
+    {
+        return $this->belongsTo(Account::class, 'agent_account');
+    }
+
     public function type()
     {
         return $this->hasOne(BonusSetting::class, 'id', 'bonus_setting_id');

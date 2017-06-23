@@ -17,7 +17,7 @@ class AccountBankController extends Controller
         $account_id = Auth::user()->account_id;
         $account = Account::find($account_id);
         $banks = Bank::get();
-        return view('bank.index', ['account' => $account, 'banks' => $banks]);
+        return view('bank.index', ['account' => $account, 'banks' => $banks, 'title' => '银行账户']);
     }
 
     public function store(Request $request)

@@ -17,11 +17,16 @@ class TransferController extends Controller
     {
         $account_id = Auth::user()->account_id;
         $account = Account::find($account_id);
-        $transfers =Transfer::find(1);
-        $transfers->status_id = TransferStatus::CANCEL;
-        $transfers->save();
         $transfers = Transfer::where('account_id', $account_id)->get();
-        return view('transfer.index', ['transfers' => $transfers, 'account' => $account]);
+        return view('transfer.index', ['transfers' => $transfers, 'account' => $account, 'title' => '取款记录']);
+    }
+
+    public function create()
+    {
+        $account_id = Auth::user()->account_id;
+        $account = Account::find($account_id);
+        $transfers = Transfer::where('account_id', $account_id)->get();
+        return view('transfer.create', ['transfers' => $transfers, 'account' => $account, 'title' => '取款']);
     }
 
     public function store(Request $request)

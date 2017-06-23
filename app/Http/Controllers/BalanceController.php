@@ -14,6 +14,6 @@ class BalanceController extends Controller
     {
         $account_id = Auth::user()->account_id;
         $account = Account::find($account_id);
-        return view('balance.index', ['account' => $account]);
+        return view('balance.index', ['account' => $account, 'title' => '账户余额']);
     }
 }

@@ -1,21 +1,16 @@
-@extends('partials.master')
+@extends('layout.master')
 
-@section('content')
+@section('left-sidebar')
 
-    <div class="head-description">
-        <div class="ui horizontal list">
-            <div class="item">
-                <div class="content">
-                    <h3>账户余额</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="new-product-container">
-        <div class="ui grid">
-            <div class="column">
-        <div class="ui cards">
-            <div class="card">
+@stop
+
+@section('top')
+    @include('partials.child_top_siderbar_menu')
+@stop
+@section('main-content')
+
+
+            <div class="ui card">
                 <div class="content">
                     <div class="header">
                         {!! $account->person_name !!}
@@ -39,9 +34,4 @@
                     </div>
                 </div>
             </div>
-        </div>
-            </div>
-        </div>
-    </div>
-    @include('transfer.create')
 @stop

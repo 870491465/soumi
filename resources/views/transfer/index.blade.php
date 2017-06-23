@@ -1,41 +1,35 @@
-@extends('partials.master')
+@extends('layout.master')
 
-@section('content')
+@section('left-sidebar')
 
-    <div class="head-description">
-        <div class="ui horizontal list">
-            <div class="item">
-                <div class="content">
-                    <h3>提现记录</h3>
-                </div>
-            </div>
-            <div class="item">
-                <button class="ui mini teal openModal button"><i class="add icon"></i>提现</button>
-            </div>
-        </div>
-    </div>
+@stop
 
-    <table class="ui celled striped table userpage-content">
-        <thead>
-        <tr>
-            <th class="one wide">序号</th>
-            <th class="three wide">取款金额</th>
-            <th class="two wide">状态</th>
-            <th class="twelve wide">日期</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php $i = 1 ?>
+@section('top')
+    @include('partials.child_top_siderbar_menu')
+@stop
+@section('main-content')
+    @if(isset($transfers))
         @foreach($transfers as $transfer)
-        <tr>
-            <td class="one wide"><?php echo $i ?></td>
-            <td class="three wide">{!! $transfer->amount !!}</td>
-            <td class="tow wide">{!! $transfer->status->display_name !!}</td>
-            <td class="twelve wide">{!! $transfer->created_at !!}</td>
-        </tr>
-            <?php $i++ ?>
+            <div class="ui gray divided list">
+                <div class="item">
+                    <div class="right floated content">
+                        <div class="meta">
+                            <span>状态：{!! $transfer->status->name !!}</span>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div>取款金额:￥{!! $transfer->amount !!}</div>
+                    </div>
+                    <br>
+                    <div class="right floated content">
+                        <div class="meta">到帐日期:{!! \Carbon\Carbon::parse($transfer->created_at)->addDay(15)->format('Y-m-d') !!}</div>
+                    </div>
+                    <div class="content">
+                        取款日期:{!! $transfer->created_at !!}
+                    </div>
+                </div>
+                <div class="ui divider"></div>
+            </div>
         @endforeach
-        </tbody>
-    </table>
-    @include('transfer.create')
+    @endif
 @stop

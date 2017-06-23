@@ -72,6 +72,7 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth']], function () {
     Route::get('/bonus', 'BonusController@index');
 
     Route::get('/transfer', 'TransferController@index');
+    Route::get('/transfer/create', 'TransferController@create');
     Route::post('/transfer', 'TransferController@store');
 
     Route::get('/balance', 'BalanceController@index');
@@ -81,6 +82,7 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth']], function () {
     Route::post('/setting/password', 'UserController@postChangePassword');
 
     Route::post('/upload', 'FileUploadController@store');
+
 });
 
 /**

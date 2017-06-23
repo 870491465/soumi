@@ -17,7 +17,7 @@ class DepositController extends Controller
     {
         $account_id = Auth::user()->account_id;
         $deposits = Deposit::where('account_id', $account_id)->get();
-        return view('deposit.index' , ['deposits' => $deposits]);
+        return view('deposit.index' , ['deposits' => $deposits, 'title' => '充值记录']);
     }
 
     public function store(Request $request)

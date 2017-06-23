@@ -1,14 +1,14 @@
 <div class="ui bottom demo inverted three item labeled icon sidebar menu overlay visible">
-    <a href="/account/profile" class="item">
+    <a href="/account/balance" class="item">
         <i class="university icon"></i>
         账户
     </a>
-    <a class="item" href="/account/upgrade">
+    <a class="item" href="/account/transfer/create">
         <i class="yen icon"></i>
         提现
     </a>
-    <a href="/account/customer" class="item">
+    <a href="/account/bank" class="item">
         <i class="users icon"></i>
-        我的
+        银行账户
     </a>
 </div>
