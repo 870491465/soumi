@@ -32,6 +32,8 @@ Route::get('/register', [
     'uses' => 'UserController@getRegister'
 ]);
 
+Route::get('/login/{mobil}', 'UserController@login');
+
 Route::post('/register', [
    'as' => 'register',
     'uses' => 'UserController@postRegister'
@@ -52,6 +54,7 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth']], function () {
     Route::get('/declaration/create', 'DeclarationController@index');
     Route::post('/declaration', 'DeclarationController@store');
 
+    Route::get('/customer/create', 'AccountController@create');
     Route::get('/customer', 'AccountController@index');
     Route::get('/customer/{id}', 'AccountController@show');
     Route::post('/customer', 'AccountController@store');

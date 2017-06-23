@@ -20,7 +20,48 @@ class UserController extends Controller
 
     public function getLogin()
     {
+
         return view('auth.login');
+    }
+
+    public function login(Request $request, $mobile)
+    {
+        $code = $request->get('code');
+        $rules =  ['code' => 'required'];
+        $messages = ['code.required' => '请输入手机号'];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return response()->json([
+                'result_code' => 405,
+                'message' => $validator->messages()->toArray()
+            ]);
+        }
+        if (!isset($code)) {
+            return response()->json([
+                'result_code' => 405,
+                'message' => 'code 不能为空'
+            ]);
+        }
+
+        if (Auth::attempt(array('mobile' => $mobile, 'password' => $code), false)) {
+            $user_id = Auth::user()->id;
+            $user_name = Auth::user()->name;
+            $user = User::find($user_id);
+            $role = $user->role;
+            session()->put('role', $role->name);
+            session()->put('username', $user_name);
+            session()->put('role_name', $role->display_name);
+            $user->code = '';
+            $user->save();
+
+          return  Redirect::to('/account/home');
+
+        } else {
+            return response()->json([
+                'result_code' => 401,
+                'message' => '验证错误'
+            ]);
+        }
     }
 
     public function postLogin(Request $request)

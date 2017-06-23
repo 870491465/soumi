@@ -3,7 +3,7 @@
             <h2 class="ui inverted header">嗖咪前台</h2>
         </div>
             <div class="column">
-                <a class="ui icon header" href="/account/customer" id="sidebar_menu">
+                <a class="ui icon header" href="/account/customer">
                     <i class="circular users icon"></i>
                     <div class="content">
                         商户管理
@@ -11,12 +11,12 @@
                 </a>
             </div>
             <div class="column" >
-                <div class="ui icon header">
+                <a class="ui icon header" href="/account/bonus">
                     <i class="circular pie chart icon"></i>
                     <div class="content">
                         我的权益
                     </div>
-                </div>
+                </a>
             </div>
             <div class="column">
                 <div class="ui icon header">

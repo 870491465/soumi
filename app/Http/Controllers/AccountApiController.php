@@ -222,7 +222,36 @@ class AccountApiController extends Controller
             $api_sig = $request->get('api_sig');
             $new_sig = $this->api_sig($mobile);
             if ($new_sig == $api_sig) {
-
+                $role_id = $account->user->role_id;
+                if ($role_id == 2) {
+                    return response()->json([
+                        'result_code' => 200,
+                        'upgrade_type' => array([
+                            'role_id' => 3,
+                            'name' => '运营商',
+                            'amount' => 30000,
+                        ],[
+                            'role_id' => 2,
+                            'name' => '服务商',
+                            'amount' => 0,
+                        ]
+                            )
+                    ]);
+                } elseif($role_id == 3) {
+                    return response()->json([
+                        'result_code' => 200,
+                        'upgrade_type' => array([
+                            'role_id' => 3,
+                            'name' => '运营商',
+                            'amount' => 0,
+                        ],[
+                            'role_id' => 2,
+                            'name' => '服务商',
+                            'amount' => 0,
+                        ]
+                            )
+                    ]);
+                }
             } else {
                 return response()->json([
                     'result_code' => 401,
@@ -285,10 +314,11 @@ class AccountApiController extends Controller
                 $user = User::where('mobile', $mobile)->first();
                 $code = md5(rand(000000, 999999));
                 $user->code = $code;
+                $user->password = Hash::make($code);
                 $user->save();
                 return response()->json([
                     'result_code' => 200,
-                    'return_url' => $_SERVER['SERVER_NAME'].'/login/'.$code
+                    'return_url' => $_SERVER['SERVER_NAME'].'/login/'.$mobile.'?code='.$code
                 ]);
             } else {
                 return response()->json([

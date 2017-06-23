@@ -1,12 +1,16 @@
-@extends('partials.master')
+@extends('layout.master')
 
-@section('content')
+@section('left-sidebar')
 
-    <div class="head-description">
-        <h3>收益列表</h3>
-    </div>
+@stop
 
-    <table class="ui celled striped table userpage-content">
+@section('top')
+    @include('partials.child_top_siderbar_menu')
+@stop
+@section('main-content')
+
+
+    {{--<table class="ui celled striped table userpage-content">
         <thead>
         <tr>
             <th class="one wide">序号</th>
@@ -16,20 +20,27 @@
             <th class="three wide">日期</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody>--}}
         <?php $i=1 ?>
-        @if(isset($account->bonuses))
-        @foreach($account->bonuses as $bonus)
-        <tr>
+        @if(isset($bonuses))
+        @foreach($bonuses as $bonus)
+            <div class="ui divided items">
+                <div class="item">
+                    <div class="content">
+                       <span>收益金额：{!! $bonus->amount !!}</span>
+                    </div>
+                </div>
+            </div>
+     {{--   <tr>
             <td class="one wide"><?php echo $i ?></td>
             <td class="three wide">{!! $bonus->type->name !!}</td>
             <td class="tow wide">{!! $bonus->amount !!}</td>
             <td class="two wide">{!! $bonus->type->deposit_type->name !!}</td>
             <td class="two wide">{!! $bonus->created_at !!}</td>
-        </tr>
+        </tr>--}}
             <?php $i++ ?>
          @endforeach
          @endif
-        </tbody>
-    </table>
+     {{--   </tbody>
+    </table>--}}
 @stop

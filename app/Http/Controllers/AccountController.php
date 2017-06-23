@@ -182,7 +182,7 @@ class AccountController extends Controller
         } else {
             $account = Account::find($id);
         }
-        return view('customer.index', ['account' => $account, 'customers' => $customers, 'title' => '商户权益']);
+        return view('customer.index', ['account' => $account, 'customers' => $customers, 'title' => '我的商户']);
     }
 
     public function profile()
