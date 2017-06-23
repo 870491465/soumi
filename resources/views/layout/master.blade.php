@@ -3,7 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>嗖咪前台</title>
+    <title></title>
     <script src="/js/components/jquery.min.js"></script>
 
     <link href="/css/components/semantic.min.css" rel="stylesheet">
