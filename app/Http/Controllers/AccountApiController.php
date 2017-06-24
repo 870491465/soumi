@@ -6,6 +6,7 @@ use App\Models\Account;
 use App\Models\Balance;
 use App\Models\BalanceTransaction;
 use App\Models\BalanceTransactionStatus;
+use App\Models\Customer;
 use App\Models\Deposit;
 use App\Models\DepositStatus;
 use App\Models\DepositType;
@@ -52,6 +53,7 @@ class AccountApiController extends Controller
         $sfz = $request->get('identity_card_number');
         $amount = $request->get('amount');
         $api_sig = $request->get('api_sig');
+        $agent_mobile = $request->get('api_sig');
         $secret_key = env('SECRET_KEY');
         $msg = implode('|', array($name, $sfz, $secret_key, $mobile));
         $new_sig = md5($msg);
@@ -69,10 +71,12 @@ class AccountApiController extends Controller
             if (!$account) {
                 if ($amount == 30000) {
                     return response()->json([
-                       'result_code' => '400',
+                        'result_code' => '400',
                         'message' => '金额有误，无法升级。请检查此商户是否已经为服务商!'
                     ]);
                 }
+
+
                 DB::beginTransaction();
                 try {
                     $password = substr($sfz, 0, 3) . substr($sfz, -1, 3);
@@ -88,6 +92,13 @@ class AccountApiController extends Controller
                         'account_id' => $account->id,
                         'role_id' => $role_id
                     ]);
+
+                    if (isset($agent_mobile)) {
+                        $agent_account = Account::where('mobile', $agent_mobile)->first();
+                        if (isset($agent_account)) {
+                            $customer = Customer::created(['account_id' => $agent_account->id, 'child_id' => $account->id]);
+                        }
+                    }
 
                     $deposit = new Deposit();
                     $deposit->account_id = $account->id;

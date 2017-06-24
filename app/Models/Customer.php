@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends BaseModel
 {
     //
+    public $fillable = ['account_id', 'child_id'];
 
     public function account()
     {
