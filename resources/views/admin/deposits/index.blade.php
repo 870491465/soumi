@@ -68,7 +68,7 @@
                     @endif
 
                 </td>
-                <td>{!! $deposit->account->person_name !!}</td>
+                <td></td>
                 <td>{!! $deposit->account->mobile !!}</td>
                 <td>{!! $deposit->account->business_name !!}</td>
                 <td>{!! $deposit->amount !!}</td>
