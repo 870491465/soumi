@@ -108,5 +108,5 @@
         @endforeach
         </tbody>
     </table>
-    @include('admin.authentication.detail')
+
 @stop

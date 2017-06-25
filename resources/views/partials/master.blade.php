@@ -169,7 +169,7 @@
             <div class="user-area-wrap">
                 <div class="ui stackable grid">
                     <div class="column left-navigation">
-                        @if(session('role') == 'Admin')
+                        @if(session('role') == \App\Models\Role::ADMIN)
                             @include('partials.admin_leftmenu')
                         @else
                             @include('partials.leftmenu')

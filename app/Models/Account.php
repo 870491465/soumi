@@ -55,4 +55,9 @@ class Account extends BaseModel
         return $this->hasMany(Declaration::class);
     }
 
+    public function agent()
+    {
+        return $this->belongsTo(Customer::class, 'id', 'child_id');
+    }
+
 }

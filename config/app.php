@@ -180,6 +180,8 @@ return [
 
         lyt8384\Pingpp\PingppServiceProvider::class,
 
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
     ],
 
     /*
@@ -232,6 +234,8 @@ return [
         'HTML' => Collective\Html\HtmlFacade::class,
 
         'Pingpp' => lyt8384\Pingpp\Facades\Pingpp::class,
+
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

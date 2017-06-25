@@ -32,20 +32,6 @@ class DeclarationSuccessJob implements ShouldQueue
     public function handle()
     {
         //
-        $account_id = $this->declaratioin->account_id;
-        $balance_transaction_id = $this->declaratioin->balance_transaction_id;
 
-        DB::beginTransaction();
-        try
-        {
-            //跟新Balance_Transaction 状态
-            $balance_transaction = BalanceTransaction::find($balance_transaction_id);
-            $balance_transaction->status_id = BalanceTransactionStatus::SUCCESS;
-            $balance_transaction->save();
-
-
-        } catch(Exception $e) {
-            DB::rollback();
-        }
     }
 }

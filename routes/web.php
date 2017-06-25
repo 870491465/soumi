@@ -91,7 +91,7 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth']], function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Admin'], function () {
     Route::get('/home', function() {
-        return view('admin.home');
+        return view('admin.deposit.index');
     });
 
     //认证审核
@@ -150,8 +150,26 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Adm
     ]);
 
     Route::get('/deposit', 'DepositController@index');
+    Route::get('/deposit/{id}', 'DepositController@show');
+    Route::post('/deposit/{id}', 'DepositController@update');
     Route::post('/deposit/search', 'DepositController@search');
+
+    Route::get('/upgrade/sms', 'DepositController@sendUpgradeMessage');
+    Route::post('/upgrade/sms', 'DepositController@postSendUpgradeMessage');
 
     Route::get('/transfer', 'TransferController@index');
     Route::post('/transfer/search', 'TransferController@search');
+    Route::post('/transfer/export', 'TransferController@export');
+    Route::post('/transfer/success', 'TransferController@transferSuccess');
+
+    Route::get('/setting/smscontent', 'SmsContentController@show');
+    Route::post('/setting/smscontent', 'SmsContentController@store');
+
+    Route::get('/message', 'MessageController@index');
+    Route::get('/message/create', 'MessageController@create');
+    Route::post('/message/create', 'MessageController@store');
+
+    Route::get('/setting', 'SettingController@index');
+    Route::get('/setting/update/password', 'SettingController@updatePassword');
+    Route::post('/setting/password', 'SettingController@postChangePassword');
 });

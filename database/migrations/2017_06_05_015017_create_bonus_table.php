@@ -17,9 +17,10 @@ class CreateBonusTable extends Migration
         Schema::create('bonus', function(Blueprint $table) {
            $table->increments('id');
             $table->integer('account_id');
-            $table->decimal('amount');
+            $table->decimal('amount')->default(0);
             $table->integer('bonus_setting_id');
             $table->integer('agent_account');
+            $table->decimal('paid_amount')->default(0);
             $table->integer('balance_transaction_id')->nullable();
             $table->timestamps();
         });

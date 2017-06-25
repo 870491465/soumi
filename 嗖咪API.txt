@@ -1,0 +1,89 @@
+前台API
+
+result_code 说明：
+200  成功
+400  提交金额与升级类型不符
+401  签名错误
+402  重复升级
+403  金额有误
+404  资源不存在
+405  参数错误
+500  服务器错误
+
+api_sig 说明：
+api_sig 签名由 name|identity_card_number|secret_key|mobile 组成字符串进行MD5加密
+name: 用户姓名
+identity_card_number: 身份证号
+secret_key ：密钥
+mobile: 手机号
+
+1，用户升级API
+
+url:        http://39.108.12.163/api/account/promote
+data:       name, mobile, identity_card_number, amount, api_sig
+method :    post
+response:   {result_code: XXX} 
+
+2, 获取账户余额
+url :		http://39.108.12.163/api/account/balance/手机号
+data:       api_sig
+method:      get
+response:   {result_code: XXX, maount:}
+
+3,获取登录地址 
+url :		http://39.108.12.163/api/account/login/手机号
+data:       api_sig
+method:     get
+response:   {result_code: XXX, return_url:}
+
+4,对冲
+url :       http://39.108.12.163/api/account/hedge/手机号
+data:      api_sig, amount
+method:    post
+response: {result_code: XXX} 
+
+
+5,获取升级金额
+url:	http://39.108.12.163/api/upgrade/amount/手机号
+data:   api_sig
+response: {
+	"result_code": 200,
+    "upgrade_type": [
+        {
+            "amount": "6000.00",
+            "role_id": 2,
+            "name": "服务商"
+        },
+        {
+            "amount": "36000.00",
+            "role_id": 3,
+            "name": "运营商"
+        }
+    ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

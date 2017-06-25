@@ -16,9 +16,11 @@ class CreateBonusSettingTable extends Migration
         //  权益设置
         Schema::create('bonus_settings', function(Blueprint $table) {
            $table->increments('id');
-            $table->integer('role_id');
-            $table->integer('bonus_type_id');
-            $table->integer('deposit_type_id');
+            $table->integer('primary_role')->default(0);
+            $table->integer('agent_role')->default(0);
+            $table->string('name')->nullable();
+            $table->integer('deposit_type_id')->default(0);
+            $table->integer('level');
             $table->integer('is_rate')->default(0);
             $table->decimal('rate');
             $table->integer('is_fixed')->default(0);

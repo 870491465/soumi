@@ -90,8 +90,7 @@ class BonusSettingController extends Controller
         $messages = [
             'name.required' => '请输入权益名称',
             'primary_role.required' => '请选择上级代理',
-            'agnet_role.required' => '请选择代理级别',
-            'deposit_type_id.required' => '请选择类型'
+            'agent_role.required' => '请选择代理级别',
         ];
         $validate = Validator::make($request->all(), $rules, $messages);
         if ($validate->fails()) {
@@ -105,7 +104,6 @@ class BonusSettingController extends Controller
         $primary_role = $request->get('primary_role');
         $agent_role = $request->get('agent_role');
         $level = $request->get('level');
-        $deposit_type_id = $request->get('deposit_type_id');
         $is_rate = 0;
         $is_fixed = 0;
         $rate = $request->get('rate');
@@ -123,7 +121,6 @@ class BonusSettingController extends Controller
         $bonus->primary_role = $primary_role;
         $bonus->agent_role = $agent_role;
         $bonus->level = $level;
-        $bonus->deposit_type_id = $deposit_type_id;
         $bonus->is_fixed = $is_fixed;
         $bonus->is_rate = $is_rate;
         $bonus->rate = $rate;

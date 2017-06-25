@@ -22,19 +22,15 @@ class TransactionEventSubscriber
     {
         $events->listen(
             [  'App\Events\TransferCreated',
-                'App\Events\DepositCreated',
                 ],
             'App\Listeners\TransactionEventSubscriber@Transaction'
         );
 
-        /*$events->listen(
-            'App\Events\BalanceTransactionStatusUpdate',
-            'App\Listeners\TransactionEventSubscriber@handleBalanceTransactionUpdate'
-        );*/
         $events->listen(
-            'App\Events\BalanceTransactionCreated',
-            'App\Listeners\TransactionEventSubscriber@handleBalanceTransactionCreated'
+            'App\Events\DepositStatusUpdate',
+            'App\Listeners\TransactionEventSubscriber@handleDeposit'
         );
+
         $events->listen(
             'App\Events\BonusCreated',
             'App\Listeners\TransactionEventSubscriber@handleBalance'

@@ -12,7 +12,7 @@
         <i class="spy red icon"></i>
     </div>
     <div class="item">
-        <a href="/admin/deposit">充值记录</a>
+        <a href="/admin/deposit">充值审核</a>
         <i class="yen icon"></i>
     </div>
     <div class="item">
@@ -26,6 +26,10 @@
     <div class="item">
         <a href="/admin/bonussetting">权益设置</a>
         <i class="credit card alternative icon"></i>
+    </div>
+    <div class="item">
+        <a href="/admin/message">发布消息</a>
+        <i class="setting icon"></i>
     </div>
     <div class="item">
         <a href="/admin/setting">系统设置</a>

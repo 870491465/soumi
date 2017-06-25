@@ -10,6 +10,7 @@
 @section('main-content')
         @if(isset($bonuses))
         @foreach($bonuses as $bonus)
+            <div class="ui bottom attached tab active segment">
             <div class="ui gray divided list">
                 <div class="item">
                     <div class="right floated content">
@@ -27,7 +28,7 @@
                 </div>
                 <div class="ui divider"></div>
             </div>
-
+            </div>
          @endforeach
          @endif
      {{--   </tbody>

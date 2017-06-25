@@ -15,7 +15,7 @@ class CustomerController extends Controller
     //
     public function index()
     {
-        $accounts = Account::where('status','>', 0)->orderBy('created_at', 'desc')->paginate(15);
+        $accounts = Account::orderBy('created_at', 'desc')->paginate(15);
         return view('admin.customer.index', ['accounts' => $accounts]);
     }
 

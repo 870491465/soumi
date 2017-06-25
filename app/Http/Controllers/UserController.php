@@ -81,18 +81,27 @@ class UserController extends Controller
         if (Auth::attempt(array('mobile' => $mobile, 'password' => $password), false)) {
             $user_id = Auth::user()->id;
             $user_name = Auth::user()->name;
-            $role = User::find($user_id)->role;
+            $role = Auth::user()->role_id;
+
            // $role = $user->role();
 
            // $user_role = RoleUser::where('user_id', $user_id)->first()->load(['role']);
             //$role_name = $user_role->role->name;
-            session()->put('role', $role->name);
+            session()->put('role', $role);
             session()->put('username', $user_name);
-            session()->put('role_name', $role->display_name);
-            if($role == 'Admin') {
+            if ($role == 2) {
+                $display_name = '服务商';
+            } elseif ($role == 3) {
+                $display_name = '运营商';
+            } elseif ($role == 5) {
+                $display_name = '管理员';
+            }
+
+            session()->put('role_name', $display_name);
+            if($role == Role::ADMIN) {
                 return response()->json([
                     'status' => 'success',
-                    'redirectUrl' => '/admin/home'
+                    'redirectUrl' => '/admin/deposit'
                 ]);
             } else {
                 return response()->json([

@@ -39,28 +39,26 @@
     <table class="ui celled striped table userpage-content">
         <thead>
         <tr>
-            <th>序号</th>
-            <th>姓名</th>
-            <th>手机号</th>
-            <th>公司名称</th>
-            <th>权益金额</th>
-            <th>权益名称</th>
-            <th>类型</th>
-            <th>提交日期</th>
+            <th class="center aligned">序号</th>
+            <th class="center aligned">姓名</th>
+            <th class="center aligned">手机号</th>
+            <th class="center aligned">权益金额</th>
+            <th class="center aligned">发生人</th>
+            <th class="center aligned">发生金额</th>
+            <th class="center aligned">提交日期</th>
         </tr>
         </thead>
         <tbody>
         <?php $i = 1 ?>
         @foreach($bonus as $bonu)
             <tr>
-                <td><?php echo $i ?></td>
-                <td>{!! $bonu->account->person_name !!}</td>
-                <td>{!! $bonu->account->mobile !!}</td>
-                <td>{!! $bonu->account->business_name !!}</td>
-                <td>{!! $bonu->amount !!}</td>
-                <td>{!! $bonu->type->name !!}</td>
-                <td>{!! $bonu->type->deposit_type->name !!}</td>
-                <td>{!! $bonu->created_at !!}</td>
+                <td class="center aligned"><?php echo $i ?></td>
+                <td class="center aligned">{!! $bonu->account->person_name !!}</td>
+                <td class="center aligned">{!! $bonu->account->mobile !!}</td>
+                <td class="center aligned">{!! $bonu->amount !!}</td>
+                <td class="center aligned">{!! $bonu->childAccount->person_name !!}</td>
+                <td class="center aligned">{!! $bonu->paid_amount !!}</td>
+                <td class="center aligned">{!! $bonu->created_at !!}</td>
             </tr>
             <?php $i++ ?>
         @endforeach

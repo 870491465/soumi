@@ -17,9 +17,9 @@ class CreateBalanceTable extends Migration
         Schema::create('balances', function(Blueprint $table) {
            $table->increments('id');
             $table->integer('account_id');
-            $table->decimal('amount')->nullable(0);
-            $table->decimal('total')->nullable(0);
-            $table->decimal('available')->nullable(0);
+            $table->decimal('amount')->default(0);
+            $table->decimal('total')->default(0);
+            $table->decimal('available')->default(0);
             $table->timestamps();
         });
     }

@@ -76,7 +76,6 @@ class AccountApiController extends Controller
                     ]);
                 }
 
-
                 DB::beginTransaction();
                 try {
                     $password = substr($sfz, 0, 3) . substr($sfz, -1, 3);
@@ -89,8 +88,7 @@ class AccountApiController extends Controller
                         'name' => $name,
                         'mobile' => $mobile,
                         'password' => Hash::make($password),
-                        'account_id' => $account->id,
-                        'role_id' => $role_id
+                        'account_id' => $account->id
                     ]);
 
                     if (isset($agent_mobile)) {
@@ -107,11 +105,6 @@ class AccountApiController extends Controller
                     $deposit->deposit_type_id = DepositType::PULL_USE;
                     $deposit->status_id = DepositStatus::SUCCESS;
                     $deposit->save();
-
-                    $upgrade_history = UpgradeHistory::create([
-                        'account_id' => $account->id,
-                        'before_role' => $role_id,
-                        'after_role' => $role_id, 'is_have_bonus' => 0]);
 
                     DB::commit();
                     return response()->json([

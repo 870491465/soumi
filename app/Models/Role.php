@@ -11,6 +11,7 @@ class Role extends BaseModel
     const SUPPLIER = 2;
     const OPERATOR = 3;
     const BRANCH = 4;
+    const ADMIN = 5;
 
     protected $fillable = ['id', 'name', 'display_name'];
 
