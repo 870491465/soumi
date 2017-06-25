@@ -68,9 +68,9 @@
                     @endif
 
                 </td>
-              {{--  <td>{!! $deposit->account->person_name !!}</td>
-                <td>{!! $deposit->account->mobile !!}</td>
-                <td>{!! $deposit->account->business_name !!}</td>--}}
+                <td>{!! isset($deposit->account) ? $deposit->account->person_name : ' ' !!}</td>
+                <td>{!! isset($deposit->account) ? $deposit->account->mobile : ' '!!}</td>
+                <td>{!! isset($deposit->account) ? $deposit->business_name : ' '!!}</td>
                 <td>{!! $deposit->amount !!}</td>
                 <td>@if ($deposit->upgrade_type_id == 2)
                         服务商
