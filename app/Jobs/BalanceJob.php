@@ -11,7 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\Log;
 
-class BalanceJob implements ShouldQueue
+class BalanceJob
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     protected $model;

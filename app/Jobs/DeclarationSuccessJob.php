@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class DeclarationSuccessJob implements ShouldQueue
+class DeclarationSuccessJob
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     private $declaratioin;

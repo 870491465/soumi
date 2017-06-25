@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use League\Flysystem\Exception;
 
-class DepositSuccessJob implements ShouldQueue
+class DepositSuccessJob
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
