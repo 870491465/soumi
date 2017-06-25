@@ -103,7 +103,7 @@ class AccountApiController extends Controller
                     $deposit->amount = $amount;
                     $deposit->upgrade_type_id = $role_id;
                     $deposit->deposit_type_id = DepositType::PULL_USE;
-                    $deposit->status_id = DepositStatus::SUCCESS;
+                    $deposit->status_id = DepositStatus::PENDING;
                     $deposit->save();
 
                     DB::commit();
@@ -153,7 +153,7 @@ class AccountApiController extends Controller
                     $deposit->amount = $amount;
                     $deposit->upgrade_type_id = $role_id;
                     $deposit->deposit_type_id = DepositType::PULL_USE;
-                    $deposit->status_id = DepositStatus::SUCCESS;
+                    $deposit->status_id = DepositStatus::PENDING;
                     $deposit->save();
 
 
