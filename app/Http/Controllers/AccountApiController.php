@@ -142,6 +142,7 @@ class AccountApiController extends Controller
                 try
                 {
                     $user = User::where('mobile', $mobile)->first();
+                    $before_role = $user->role_id;
                     $upgrade_history = UpgradeHistory::create([
                         'account_id' => $user->account_id,
                         'before_role' => $before_role,
