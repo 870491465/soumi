@@ -2,14 +2,16 @@
     <i class="close icon"></i>
     <div class="header">权益设置</div>
     <div class="content">
-        {!! Form::open(array('url' => '/admin/bonus', 'class' =>'ui form ajax')) !!}
-            <div class="inline fields">
-                <div class="three wide field">
+        {!! Form::open(array('url' => '/admin/bonussetting', 'class' =>'ui form ajax')) !!}
+            <div class="fields">
+                <div class="field">
                     <div class="ui labeled input">
                         <label class="ui label">名称</label>
                         <input type="text" name="name" />
                     </div>
                 </div>
+            </div>
+            <div class="fields">
                 <div class="field">
                     <select class="ui dropdown" name="primary_role">
                         @foreach($roles as $role)
@@ -26,20 +28,14 @@
                         @endforeach
                     </select>
                 </div>
+            </div>
+            <div class="fields">
                 <div class="field">
                     <select class="ui dropdown" name="level">
                         @foreach($levels as $level)
                             <option value="{!! $level->level !!}"
 
                             >{!! $level->name !!}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="field">
-                    <select class="ui dropdown" name="deposit_type_id">
-                        @foreach($deposit_types as $type)
-                            <option value="{!! $type->id !!}"
-                            >{!! $type->name !!}</option>
                         @endforeach
                     </select>
                 </div>
@@ -68,9 +64,9 @@
                         <label class="ui label">￥</label>
                     </div>
                 </div>
-                <div class="field">
-                    <button class="ui mini teal button" type="submit">新增</button>
-                </div>
+            </div>
+            <div class="field">
+                <button class="ui mini teal button" type="submit">新增</button>
             </div>
         </form>
     </div>
