@@ -68,7 +68,7 @@ class AccountApiController extends Controller
             }
 
             $account = Account::where('mobile', $mobile)->first();
-            if (!$account) {
+            if (!isset($account)) {
                 if ($amount == 30000) {
                     return response()->json([
                         'result_code' => '400',
@@ -87,6 +87,7 @@ class AccountApiController extends Controller
                     $user = User::create([
                         'name' => $name,
                         'mobile' => $mobile,
+                        'role_id' => $role_id,
                         'password' => Hash::make($password),
                         'account_id' => $account->id
                     ]);
@@ -140,6 +141,7 @@ class AccountApiController extends Controller
                 DB::beginTransaction();
                 try
                 {
+                    $user = User::where('mobile', $mobile)->first();
                     $upgrade_history = UpgradeHistory::create([
                         'account_id' => $user->account_id,
                         'before_role' => $before_role,
