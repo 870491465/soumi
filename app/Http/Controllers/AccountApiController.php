@@ -53,7 +53,7 @@ class AccountApiController extends Controller
         $sfz = $request->get('identity_card_number');
         $amount = $request->get('amount');
         $api_sig = $request->get('api_sig');
-        $agent_mobile = $request->get('api_sig');
+        $agent_mobile = $request->get('agent_mobile');
         $secret_key = env('SECRET_KEY');
         $msg = implode('|', array($name, $sfz, $secret_key, $mobile));
         $new_sig = md5($msg);
@@ -155,6 +155,7 @@ class AccountApiController extends Controller
                     $deposit->deposit_type_id = DepositType::PULL_USE;
                     $deposit->status_id = DepositStatus::SUCCESS;
                     $deposit->save();
+
 
                     DB::commit();
                     return response()->json(
