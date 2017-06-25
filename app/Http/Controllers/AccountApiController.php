@@ -95,7 +95,7 @@ class AccountApiController extends Controller
                     if (isset($agent_mobile)) {
                         $agent_account = Account::where('mobile', $agent_mobile)->first();
                         if (isset($agent_account)) {
-                            $customer = Customer::created(['account_id' => $agent_account->id, 'child_id' => $account->id]);
+                            $customer = Customer::create(['account_id' => $agent_account->id, 'child_id' => $account->id]);
                         }
                     }
 
