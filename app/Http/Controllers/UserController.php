@@ -56,6 +56,10 @@ class UserController extends Controller
             //$role_name = $user_role->role->name;
             session()->put('role', $role);
             session()->put('username', $user_name);
+            if($role == 0)
+            {
+                return '此用户正在审核中...';
+            }
             if ($role == 2) {
                 $display_name = '服务商';
             } elseif ($role == 3) {
