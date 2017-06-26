@@ -7,7 +7,7 @@ class Bonus extends BaseModel
     //
     protected $table = 'bonus';
 
-    protected $fillable = ['account_id', 'amount', 'bonus_setting_id', 'agent_account'];
+    protected $fillable = ['account_id', 'amount', 'bonus_setting_id', 'agent_account', 'paid_amount'];
 
     public function account()
     {

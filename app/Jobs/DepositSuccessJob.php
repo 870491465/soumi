@@ -115,6 +115,7 @@ class DepositSuccessJob
                             'account_id' => $primary->account_id,
                             'amount' => $bonus_amount,
                             'bonus_setting_id' => $bonus_setting->id,
+                            'paid_amount' => $amount,
                             'agent_account' => $account_id
                         ]
                     );
