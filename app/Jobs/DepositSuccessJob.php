@@ -47,13 +47,14 @@ class DepositSuccessJob
     {
         $account_id = $this->deposit->account_id;
         $amount = $this->deposit->amount;
-        if ($amount == 6000) {
+        $times = 1;
+        if ($amount == 6 * $times) {
             $role_id = 2;
         }
-        if ($amount == 36000) {
+        if ($amount == 36 * $times) {
             $role_id = 3;
         }
-        if ($amount == 30000) {
+        if ($amount == 3 * $times) {
             $role_id = 3;
         }
         DB::beginTransaction();
