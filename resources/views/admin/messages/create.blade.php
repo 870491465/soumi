@@ -6,13 +6,13 @@
             <div class="field">
                 <div class="ui labeled input">
                     <label class="ui label">标题</label>
-                    <input type="text" name="title" />
+                    <input type="text" name="title" maxlength="20" />
                 </div>
             </div>
             <div class="field">
                 <div class="ui labeled input">
                     <label class="ui label">内容</label>
-                    <textarea name="content" rows="5">
+                    <textarea name="content" rows="5" maxlength="300">
 
                     </textarea>
                 </div>
