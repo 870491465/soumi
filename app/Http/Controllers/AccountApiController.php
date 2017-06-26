@@ -59,17 +59,17 @@ class AccountApiController extends Controller
         $new_sig = md5($msg);
 
         if ($new_sig == $api_sig) {
-
-            if ($amount == 6000) {
+            $times = 1;
+            if ($amount == 6 * $times) {
                 $role_id = Role::SUPPLIER; //服务商
             }
-            if ($amount == 36000) {
+            if ($amount == 36 * $times) {
                 $role_id = Role::OPERATOR; //运营商
             }
 
             $account = Account::where('mobile', $mobile)->first();
             if (!isset($account)) {
-                if ($amount == 30000) {
+                if ($amount == 30 * $times) {
                     return response()->json([
                         'result_code' => '400',
                         'message' => '金额有误，无法升级。请检查此商户是否已经为服务商!'
@@ -118,7 +118,7 @@ class AccountApiController extends Controller
                     DB::rollBack();
                 }
             } else {
-                if ($amount == 30000) {
+                if ($amount == 30 * $times) {
                     $role_id = 3;
                     $user = User::where('mobile', $mobile)->first();
                     if ($user)
@@ -131,7 +131,7 @@ class AccountApiController extends Controller
                         ]);
                     }
                 }
-                if ($amount == 3000) {
+                if ($amount == 3 * $times) {
                     return response()->json([
                         'result_code' => '402',
                         'message' => '金额有误，无法升级。此用户已经是服务商!'
@@ -200,6 +200,7 @@ class AccountApiController extends Controller
 
     public function upgradeAmount(Request $request, $mobile)
     {
+        $times = 1;
         if (!isset($mobile)) {
            return  response()->json([
                 'result_code' => 405,
@@ -237,7 +238,7 @@ class AccountApiController extends Controller
                         'upgrade_type' => array([
                             'role_id' => 3,
                             'name' => '运营商',
-                            'amount' => 30000,
+                            'amount' => 30 * $times,
                         ],[
                             'role_id' => 2,
                             'name' => '服务商',
