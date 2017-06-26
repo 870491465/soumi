@@ -1,5 +1,5 @@
-<div class="ui bottom demo inverted three item labeled icon sidebar menu overlay visible">
-    <a href="/account/balance" class="item">
+<div class="ui bottom demo {!! session('color') !!} three item labeled icon sidebar menu overlay visible">
+    <a href="/account/balance" class="ui red item">
         <i class="university icon"></i>
         账户
     </a>

@@ -62,8 +62,10 @@ class UserController extends Controller
             }
             if ($role == 2) {
                 $display_name = '服务商';
+                session()->put('color', 'teal');
             } elseif ($role == 3) {
                 $display_name = '运营商';
+                session()->put('color', 'teal');
             } elseif ($role == 5) {
                 $display_name = '管理员';
             }

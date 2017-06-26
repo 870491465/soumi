@@ -6,13 +6,15 @@
 
 @section('main-content')
     <div class="ui top attached tabular menu">
-        <div class="item">公告</div>
+        <div class="item"><h5 class="header">公告</h5></div>
     </div>
-
+    <div class="ui segment">
+        {!! $message->content !!}
+    </div>
     <div class="ui top attached tabular menu">
         <div class="item"><h5 class="header">权益</h5></div>
     </div>
-    <div class="ui bottom attached tab active segment">
+    <div class="ui  segment">
     @if(isset($bonuses))
         @foreach($bonuses as $bonus)
             <div class="ui gray divided list">

@@ -23,9 +23,9 @@ class DepositController extends Controller
 
     public function index()
     {
-        /*$name = '李三';
-        $mobile = '15905507737';
-        $sfz = '340322198309210817';
+        /*$name = '李四';
+        $mobile = '13289844334';
+        $sfz = '340322198309210818';
         $sec_key = env('SECRET_KEY');
         $msg = implode('|', array($name, $sfz, $sec_key, $mobile));
         $new_sig = md5($msg);
