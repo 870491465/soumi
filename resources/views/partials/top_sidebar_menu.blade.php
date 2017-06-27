@@ -1,6 +1,6 @@
 <div class="ui four column center aligned grid">
         <div class="sixteen wide {!! session('color') !!} column">
-            <h3 class="ui inverted header">嗖咪前台</h3>
+            <h3 class="ui inverted header">{!! session('role_name') !!}管理前台</h3>
         </div>
             <div class="column">
                 <a href="/account/customer">

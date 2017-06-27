@@ -49,7 +49,12 @@ class UserController extends Controller
             $user = User::find($user_id);
             $user_name = Auth::user()->name;
             $role = Auth::user()->role_id;
-
+            $account_id = Auth::user()->account_id;
+            $account = Account::find($account_id);
+            if($account->status == 3)
+            {
+                return '此用户未审核通过';
+            }
             // $role = $user->role();
 
             // $user_role = RoleUser::where('user_id', $user_id)->first()->load(['role']);
@@ -65,7 +70,7 @@ class UserController extends Controller
                 session()->put('color', 'teal');
             } elseif ($role == 3) {
                 $display_name = '运营商';
-                session()->put('color', 'teal');
+                session()->put('color', 'blue');
             } elseif ($role == 5) {
                 $display_name = '管理员';
             }

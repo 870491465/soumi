@@ -91,9 +91,13 @@ class DepositController extends Controller
         $deposit->status_id = $status;
         $deposit->save();
 
-      /*  if ($status == DepositStatus::SUCCESS) {
-            $this->handleDeposit($deposit);
-        }*/
+        if ($status == DepositStatus::FAILD) {
+            $account_id = $deposit->account_id;
+            $account = Account::find($account_id);
+            $account->status = 3;
+            $account->save();
+           // $this->handleDeposit($deposit);
+        }
 
         return response()->json([
            'status' => 'success',
