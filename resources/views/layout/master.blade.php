@@ -3,6 +3,8 @@
 <head lang="en">
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="screen-orientation" content="portrait"><!-- uc强制竖屏 -->
+    <meta name="x5-orientation" content="portrait"><!-- QQ强制竖屏 -->
     <title></title>
     <script src="/js/components/jquery.min.js"></script>
 
@@ -188,6 +190,29 @@
 <script>
     $(document).ready(function(){
         $('.checkbox').checkbox()
+    });
+    function orient() {
+        //alert('gete');
+        if (window.orientation == 0 || window.orientation == 180) {
+            $("body").attr("class", "portrait");
+            orientation = 'portrait';
+            alert('fdsfs');
+            return false;
+        }
+        else if (window.orientation == 90 || window.orientation == -90) {
+            $("body").attr("class", "landscape");
+            orientation = 'landscape';
+
+            return false;
+        }
+    }
+
+    $(function(){
+        orient();
+    });
+
+    $(window).bind('orientationchange', function(e){
+        orient();
     });
 </script>
 <script src="/js/components/index.js"></script>
