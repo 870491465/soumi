@@ -47,7 +47,7 @@ class DepositSuccessJob
     {
         $account_id = $this->deposit->account_id;
         $amount = $this->deposit->amount;
-        $times = 1;
+        $times = 1000;
         if ($amount == 6 * $times) {
             $role_id = 2;
         }
