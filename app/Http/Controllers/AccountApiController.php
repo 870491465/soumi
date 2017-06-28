@@ -59,7 +59,7 @@ class AccountApiController extends Controller
         $new_sig = md5($msg);
 
         if ($new_sig == $api_sig) {
-            $times = 1;
+            $times = 1000;
             if ($amount == 6 * $times) {
                 $role_id = Role::SUPPLIER; //服务商
             }
@@ -200,7 +200,7 @@ class AccountApiController extends Controller
 
     public function upgradeAmount(Request $request, $mobile)
     {
-        $times = 1;
+        $times = 1000;
         if (!isset($mobile)) {
            return  response()->json([
                 'result_code' => 405,
