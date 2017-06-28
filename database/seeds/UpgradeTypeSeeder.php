@@ -13,8 +13,8 @@ class UpgradeTypeSeeder extends Seeder
     {
         //
         $statuses = [
-            ['name' => '服务商' , 'role_id' => '2', 'amount' => 6000],
-            ['name' => '运营商' ,'role_id' => '3', 'amount' => 36000]
+            ['name' => '升级服务商' , 'role_id' => '2', 'amount' => 6000],
+            ['name' => '升级运营商' ,'role_id' => '3', 'amount' => 36000]
         ];
 
         DB::table('upgrade_types')->delete();

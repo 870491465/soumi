@@ -105,7 +105,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Adm
     Route::get('/declaration', 'DeclarationController@index');
 
     Route::get('/customer', 'CustomerController@index');
-    Route::post('/customer', 'CustomerController@store');
+    Route::post('/account', 'CustomerController@store');
     Route::post('/customer/search', 'CustomerController@search');
     Route::get('/customer/upgrade', 'UpgradeHistoryController@index');
     Route::get('/customer/{id}', [
@@ -173,4 +173,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Adm
     Route::get('/setting/update/password', 'SettingController@updatePassword');
     Route::post('/setting/password', 'SettingController@postChangePassword');
     Route::get('/setting/depositamount', 'SettingController@depositAmount');
+    Route::post('/setting/depositamount/{id}', 'SettingController@postDepositAmount');
 });

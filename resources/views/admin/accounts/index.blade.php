@@ -6,7 +6,12 @@
         <div class="ui horizontal list">
             <div class="item">
                 <div class="content">
-                    <h3>商户列表</h3>
+                    <h3>商户列表2</h3>
+                </div>
+            </div>
+            <div class="item">
+                <div class="content">
+                    <button class="ui button openModal">新增商户</button>
                 </div>
             </div>
         </div>

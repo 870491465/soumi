@@ -57,22 +57,27 @@ class AccountApiController extends Controller
         $secret_key = env('SECRET_KEY');
         $msg = implode('|', array($name, $sfz, $secret_key, $mobile));
         $new_sig = md5($msg);
+        $upgrade_supplort_amount = UpgradeType::find(1)->amount;
+        $upgrade_operator_amount = UpgradeType::find(2)->amount;
 
         if ($new_sig == $api_sig) {
-            $times = 1000;
-            if ($amount == 6 * $times) {
+
+            if ($amount == $upgrade_supplort_amount) {
                 $role_id = Role::SUPPLIER; //服务商
             }
-            if ($amount == 36 * $times) {
+            if ($amount == $upgrade_operator_amount) {
+                $role_id = Role::OPERATOR; //运营商
+            }
+            if ($amount == $upgrade_operator_amount-$upgrade_supplort_amount) {
                 $role_id = Role::OPERATOR; //运营商
             }
 
             $account = Account::where('mobile', $mobile)->first();
-            if (!isset($account)) {
-                if ($amount == 30 * $times) {
+            if (!isset($account)) { //不存在
+                if ($amount != $upgrade_operator_amount && $amount != $upgrade_supplort_amount ) {
                     return response()->json([
                         'result_code' => '400',
-                        'message' => '金额有误，无法升级。请检查此商户是否已经为服务商!'
+                        'message' => '金额有误，无法升级!'
                     ]);
                 }
 
@@ -113,31 +118,16 @@ class AccountApiController extends Controller
                         'message' => '成功'
                     ]);
 
-                } catch(Exception $e)
-                {
+                } catch(Exception $e) {
                     DB::rollBack();
                 }
             } else {
-                if ($amount == 30 * $times) {
-                    $role_id = 3;
-                    $user = User::where('mobile', $mobile)->first();
-                    if ($user)
-                    {
-                        $before_role = $user->role_id;
-                    } else {
-                        return response()->json([
-                            'result_code' => '400',
-                            'message' => '金额有误，无法升级。请检查此商户是否已经为服务商!'
-                        ]);
-                    }
-                }
-                if ($amount == 3 * $times) {
+                if ($amount != $upgrade_operator_amount-$upgrade_supplort_amount) {
                     return response()->json([
                         'result_code' => '402',
-                        'message' => '金额有误，无法升级。此用户已经是服务商!'
+                        'message' => '金额有误，无法升级。请与客服联系!'
                     ]);
                 }
-
                 DB::beginTransaction();
                 try
                 {
@@ -158,8 +148,6 @@ class AccountApiController extends Controller
                     $deposit->deposit_type_id = DepositType::PULL_USE;
                     $deposit->status_id = DepositStatus::PENDING;
                     $deposit->save();
-
-
                     DB::commit();
                     return response()->json(
                         [
@@ -200,7 +188,8 @@ class AccountApiController extends Controller
 
     public function upgradeAmount(Request $request, $mobile)
     {
-        $times = 1000;
+        $upgrade_supplort_amount = UpgradeType::find(1)->amount;
+        $upgrade_operator_amount = UpgradeType::find(2)->amount;
         if (!isset($mobile)) {
            return  response()->json([
                 'result_code' => 405,
@@ -238,7 +227,7 @@ class AccountApiController extends Controller
                         'upgrade_type' => array([
                             'role_id' => 3,
                             'name' => '运营商',
-                            'amount' => 30 * $times,
+                            'amount' => $upgrade_operator_amount - $upgrade_supplort_amount,
                         ],[
                             'role_id' => 2,
                             'name' => '服务商',

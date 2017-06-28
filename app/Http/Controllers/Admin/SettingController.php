@@ -34,6 +34,25 @@ class SettingController extends Controller
         return view('admin.setting.deposit_amount', ['upgrade_types' => $upgrade_types]);
     }
 
+    public function postDepositAmount(Request $request, $id)
+    {
+        $amount = $request->get('amount'.$id);
+        $upgrade_type = UpgradeType::find($id);
+        if ($upgrade_type) {
+            $upgrade_type->amount = $amount;
+            $upgrade_type->save();
+            return response()->json(
+                ['status' => 'success',
+                    'message' => '修改成功']
+            );
+        } else {
+            return response()->json(
+                ['status' => 'error',
+                    'message' => '资源不存在']
+            );
+        }
+    }
+
     public function postChangePassword(Request $request)
     {
 
@@ -68,4 +87,5 @@ class SettingController extends Controller
         $user->save();
         return response()->json(['status' => 'success', 'message' => '密码修改成功']);
     }
+
 }

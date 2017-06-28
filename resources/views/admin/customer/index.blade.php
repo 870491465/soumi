@@ -9,6 +9,14 @@
                     <h3>商户列表</h3>
                 </div>
             </div>
+            <div class="item">
+                <div class="content">
+                    <button class="ui button openModal">
+                        <i class="add user icon"></i>
+                        新增商户
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="new-product-container">
@@ -108,5 +116,5 @@
         @endforeach
         </tbody>
     </table>
-
+@include('admin.accounts.create')
 @stop
