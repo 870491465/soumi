@@ -23,6 +23,11 @@
                     <a href="javascript:void(0)" data-href="/admin/setting/smscontent" class="ui button loadModal">修改短信内容</a>
                 </div>
             </div>
+            <div class="card">
+                <div class="content">
+                    <a href="javascript:void(0)" data-href="/admin/setting/depositamount" class="ui button loadModal">修改充值金额</a>
+                </div>
+            </div>
         </div>
     </div>
 

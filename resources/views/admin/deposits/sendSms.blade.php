@@ -16,8 +16,7 @@
         <div class="field">
             <label>发送内容</label>
             <textarea name="smscontent">
-                用户,{!! $name !!}. 您好，由于您的代理,{!! $upgrade_name !!}.升级为运营商.您目前的代理级别达不到返权益的要求，
-                请您在一天内尽快升级。一面影响您的收益.
+                {!! $content !!}
             </textarea>
         </div>
 

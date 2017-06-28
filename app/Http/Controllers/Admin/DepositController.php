@@ -9,6 +9,7 @@ use App\Models\BonusSetting;
 use App\Models\Customer;
 use App\Models\Deposit;
 use App\Models\DepositStatus;
+use App\Models\SmsContent;
 use App\Models\UpgradeHistory;
 use App\Models\UpgradeMessage;
 use App\User;
@@ -44,11 +45,14 @@ class DepositController extends Controller
     {
         $mobile = $request->get('mobile');
         $name = $request->get('name');
+        $sms_content = SmsContent::find(1)->content;
         $upgrade_name = $request->get('upgradename');
+        $sms_content = str_replace('#name#', $name, $sms_content);
+        $sms_content = str_replace('#upgrade_name#', $upgrade_name, $sms_content);
         return view('admin.deposits.sendSms', [
            'mobile' => $mobile,
             'name' => $name,
-            'upgrade_name' => $upgrade_name
+            'content' => $sms_content
         ]);
     }
 

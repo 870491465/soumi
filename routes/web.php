@@ -172,4 +172,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Adm
     Route::get('/setting', 'SettingController@index');
     Route::get('/setting/update/password', 'SettingController@updatePassword');
     Route::post('/setting/password', 'SettingController@postChangePassword');
+    Route::get('/setting/depositamount', 'SettingController@depositAmount');
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\UpgradeType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -25,6 +26,12 @@ class SettingController extends Controller
     public function updateSmsContent()
     {
         return view('admin.setting.smscontent');
+    }
+
+    public function depositAmount()
+    {
+        $upgrade_types = UpgradeType::get();
+        return view('admin.setting.deposit_amount', ['upgrade_types' => $upgrade_types]);
     }
 
     public function postChangePassword(Request $request)
