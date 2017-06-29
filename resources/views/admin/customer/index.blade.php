@@ -115,6 +115,11 @@
             <?php $i++ ?>
         @endforeach
         </tbody>
+        <tfoot>
+        <tr>
+            <th colspan="12">{!! $accounts->links() !!}</th>
+        </tr>
+        </tfoot>
     </table>
 @include('admin.accounts.create')
 @stop

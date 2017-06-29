@@ -1,26 +1,30 @@
 @if ($paginator->hasPages())
-    <ul class="pagination">
+    <ul class="ui pagination menu">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
-            <li class="disabled"><span>&laquo;</span></li>
+            <a class="disabled icon item">
+                <i class="left chevron icon"></i>
+            </a>
         @else
-            <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">&laquo;</a></li>
+            <a class="icon item" href="{{ $paginator->previousPageUrl() }}" rel="prev">
+                <i class="left chevron icon"></i>
+            </a>
         @endif
 
         {{-- Pagination Elements --}}
         @foreach ($elements as $element)
             {{-- "Three Dots" Separator --}}
             @if (is_string($element))
-                <li class="disabled"><span>{{ $element }}</span></li>
+                <a class="item disabled"><span>{{ $element }}</span></a>
             @endif
 
             {{-- Array Of Links --}}
             @if (is_array($element))
                 @foreach ($element as $page => $url)
                     @if ($page == $paginator->currentPage())
-                        <li class="active"><span>{{ $page }}</span></li>
+                        <a class="active item"><span>{{ $page }}</span></a>
                     @else
-                        <li><a href="{{ $url }}">{{ $page }}</a></li>
+                        <a class="item" href="{{ $url }}">{{ $page }}</a>
                     @endif
                 @endforeach
             @endif
@@ -28,9 +32,13 @@
 
         {{-- Next Page Link --}}
         @if ($paginator->hasMorePages())
-            <li><a href="{{ $paginator->nextPageUrl() }}" rel="next">&raquo;</a></li>
+            <a class="icon item" href="{{ $paginator->nextPageUrl() }}" rel="next">
+                <i class="right chevron icon"></i>
+            </a>
         @else
-            <li class="disabled"><span>&raquo;</span></li>
+            <a class="disabled icon item">
+                <i class="right chevron icon"></i>
+            </a>
         @endif
     </ul>
 @endif
