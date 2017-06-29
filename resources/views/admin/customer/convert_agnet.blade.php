@@ -47,7 +47,7 @@
             <select class="ui fluid search  dropdown" name="primary_account">
                 <option value="">请选择新代理</option>
                 @foreach($accounts as $account2)
-                    <option value="{!! $account2->id !!}">{!! $account2->person_name !!}[{!! $account2->business_name !!}]</option>
+                    <option value="{!! $account2->id !!}">{!! $account2->person_name !!}[{!! $account2->mobile !!}]</option>
                 @endforeach
             </select>
         </div>
