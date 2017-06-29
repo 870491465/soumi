@@ -33,7 +33,7 @@
                         </div>
                         <div class="field">
                             <label>代理级别:</label>
-                            <input type="text" value="@if($customer->primaryAccount->user->role_id == 2)服务商 @elseif($customer->primaryAccount->user->role_id == 3)运营商 @elseif($customer->primaryAccount->user->role_id == 4)分公司 @endif"/>
+                            <input type="text" value="@if($customer->primaryAccount->user->role_id == 1) 免费用户 @elseif($customer->primaryAccount->user->role_id == 2)服务商 @elseif($customer->primaryAccount->user->role_id == 3)运营商 @elseif($customer->primaryAccount->user->role_id == 4)分公司 @endif"/>
                         </div>
                     </div>
                 </div>
