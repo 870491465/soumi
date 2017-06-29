@@ -185,6 +185,7 @@ class CustomerController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => '提交成功',
+            'redirectUrl' => ''
         ]);
 
     }
@@ -253,7 +254,8 @@ class CustomerController extends Controller
         }
         return response()->json([
            'status' => 'success',
-            'message' => '设置成功'
+            'message' => '设置成功',
+            'redirectUlr' => ''
         ]);
     }
 }
