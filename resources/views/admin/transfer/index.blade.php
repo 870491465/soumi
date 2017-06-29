@@ -102,5 +102,12 @@
             <?php $i++ ?>
         @endforeach
         </tbody>
+        @if(isset($transfer->links))
+        <tfoot>
+        <tr>
+            <th>{!! $transfer->links() !!}</th>
+        </tr>
+        </tfoot>
+        @endif
     </table>
 @stop

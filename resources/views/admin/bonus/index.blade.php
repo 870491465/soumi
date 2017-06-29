@@ -63,5 +63,12 @@
             <?php $i++ ?>
         @endforeach
         </tbody>
+        @if(isset($bonus->links))
+            <tfoot>
+            <tr>
+                <th colspan="7">{!! $bonus->links()!!}</th>
+            </tr>
+            </tfoot>
+        @endif
     </table>
 @stop

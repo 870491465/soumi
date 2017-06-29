@@ -115,11 +115,13 @@
             <?php $i++ ?>
         @endforeach
         </tbody>
+        @if(isset($accounts->links))
         <tfoot>
         <tr>
             <th colspan="12">{!! $accounts->links() !!}</th>
         </tr>
         </tfoot>
+         @endif
     </table>
 @include('admin.accounts.create')
 @stop

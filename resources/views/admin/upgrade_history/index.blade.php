@@ -76,5 +76,12 @@
             <?php $i++ ?>
         @endforeach
         </tbody>
+        @if(isset($upgrade_historys->links))
+            <tfoot>
+            <tr>
+                <th colspan="7">{!! $$upgrade_historys->links() !!}</th>
+            </tr>
+            </tfoot>
+        @endif
     </table>
 @stop

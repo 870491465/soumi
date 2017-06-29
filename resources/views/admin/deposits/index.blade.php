@@ -123,11 +123,17 @@
                             </div>
                         </div>
                     </td>
-
                 </tr>
             @endif
             <?php $i++ ?>
         @endforeach
         </tbody>
+        @if(isset($deposits->links))
+        <tfoot>
+        <tr>
+            <th colspan="9">{!! $deposits->links() !!}</th>
+        </tr>
+        </tfoot>
+        @endif
     </table>
 @stop
