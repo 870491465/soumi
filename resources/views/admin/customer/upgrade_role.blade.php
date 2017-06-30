@@ -1,6 +1,6 @@
 <div class="ui small modal">
     <i class="close icon"></i>
-    <div class="header">商户升级</div>
+    <div class="header">商户升降级</div>
     <div class="content">
         {!! Form::open(['url' => route('postCustomerUpgrade', ['account_id' => $account->id]), 'class' => 'ui form form-horizontal ajax']) !!}
             <div class="field">
@@ -19,20 +19,11 @@
             <div class="field">
                 <div class="two inline fields">
                     <div class="field">
-                        <label>升级类型:</label>
+                        <label>代理类型:</label>
                         <select class="ui dropdown" id="afer_role" name="after_role">
-                            @if($account->user->role_id == 1)
-                                <option value="2">服务商</option>
-                                <option value="3">运营商</option>
-                                <option value="4">分公司</option>
-                            @endif
-                            @if($account->user->role_id == 2)
+                            <option value="2">服务商</option>
                             <option value="3">运营商</option>
                             <option value="4">分公司</option>
-                            @endif
-                            @if($account->user->role_id == 3)
-                                    <option value="4">分公司</option>
-                            @endif
                         </select>
                     </div>
                     <div class="field">
@@ -46,7 +37,7 @@
             <div class="field">
                 <div class="two fields">
                     <div class="field">
-                        <button class="ui teal button" type="submit">升级</button>
+                        <button class="ui teal button" type="submit">设置</button>
                     </div>
                 </div>
             </div>

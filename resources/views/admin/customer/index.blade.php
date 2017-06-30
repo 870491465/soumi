@@ -102,7 +102,7 @@
                     <a href="javascript:void(0);" data-modal-id="EditAttendee"
                        class="loadModal ui mini teal icon button"
                        data-href="{!! route('customerUpgrade', ['id' => $account->id]) !!}">
-                        <i class="setting icon"></i>升级</a>
+                        <i class="setting icon"></i>升降级</a>
                 </td>
                 <td class="center aligned">
                     <a href="javascript:void(0);" data-modal-id="EditAttendee"
