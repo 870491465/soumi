@@ -17,7 +17,7 @@
         <div class="item"><h5 class="header">权益</h5></div>
     </div>
     @if(isset($bonuses))
-    <div class="ui  segment">
+    <div class="ui segment">
         @foreach($bonuses as $bonus)
             <div class="ui gray divided list">
                 <div class="item">

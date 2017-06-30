@@ -47,14 +47,15 @@ class DepositSuccessJob
     {
         $account_id = $this->deposit->account_id;
         $amount = $this->deposit->amount;
-        $times = 1000;
-        if ($amount == 6 * $times) {
+        $upgrade_supplort_amount = UpgradeType::find(1)->amount;
+        $upgrade_operator_amount = UpgradeType::find(2)->amount;
+        if ($amount == $upgrade_supplort_amount) {
             $role_id = 2;
         }
-        if ($amount == 36 * $times) {
+        if ($amount == $upgrade_operator_amount) {
             $role_id = 3;
         }
-        if ($amount == 3 * $times) {
+        if ($amount == $upgrade_operator_amount-$upgrade_supplort_amount) {
             $role_id = 3;
         }
         DB::beginTransaction();
