@@ -8,9 +8,11 @@
     <div class="ui top attached tabular menu">
         <div class="item"><h5 class="header">公告</h5></div>
     </div>
+    @if(isset($message->content))
     <div class="ui segment">
         {!! $message->content !!}
     </div>
+    @endif
     <div class="ui top attached tabular menu">
         <div class="item"><h5 class="header">权益</h5></div>
     </div>
