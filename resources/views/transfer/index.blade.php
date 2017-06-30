@@ -14,7 +14,7 @@
                 <div class="item">
                     <div class="right floated content">
                         <div class="meta">
-                            <span>状态：{!! $transfer->status->name !!}</span>
+                            <span>状态：{!! $transfer->status->display_name !!}</span>
                         </div>
                     </div>
                     <div class="content">
