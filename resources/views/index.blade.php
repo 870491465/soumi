@@ -16,8 +16,8 @@
     <div class="ui top attached tabular menu">
         <div class="item"><h5 class="header">权益</h5></div>
     </div>
-    <div class="ui  segment">
     @if(isset($bonuses))
+    <div class="ui  segment">
         @foreach($bonuses as $bonus)
             <div class="ui gray divided list">
                 <div class="item">
@@ -36,13 +36,11 @@
                 </div>
                 <div class="ui divider"></div>
             </div>
-
         @endforeach
+    </div>
     @else
         无权益
     @endif
-
-    </div>
 @stop
 
 @section('top')
