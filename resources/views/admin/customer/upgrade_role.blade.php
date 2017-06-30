@@ -21,6 +21,11 @@
                     <div class="field">
                         <label>升级类型:</label>
                         <select class="ui dropdown" id="afer_role" name="after_role">
+                            @if($account->user->role_id == 1)
+                                <option value="2">服务商</option>
+                                <option value="3">运营商</option>
+                                <option value="4">分公司</option>
+                            @endif
                             @if($account->user->role_id == 2)
                             <option value="3">运营商</option>
                             <option value="4">分公司</option>

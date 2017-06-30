@@ -65,6 +65,10 @@ class UserController extends Controller
             {
                 return '此用户正在审核中...';
             }
+            if ($role == 1) {
+                $display_name = '免费用户';
+                session()->put('color', 'teal');
+            }
             if ($role == 2) {
                 $display_name = '服务商';
                 session()->put('color', 'teal');
