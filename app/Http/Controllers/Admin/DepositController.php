@@ -24,9 +24,9 @@ class DepositController extends Controller
 
     public function index()
     {
-        /*$name = '李保勤';
-        $mobile = '13337939996';
-        $sfz = '320302196001282822';
+        /*$name = '陈勇';
+        $mobile = '18099675005';
+        $sfz = '650102196810051659';
         $sec_key = env('SECRET_KEY');
         $msg = implode('|', array($name, $sfz, $sec_key, $mobile));
         $new_sig = md5($msg);
@@ -222,7 +222,7 @@ class DepositController extends Controller
         $business_name = $request->get('business_name');
 
         if ($name) {
-            $account_id = Account::where('name', '=', $name)->first()->id;
+            $account_id = Account::where('person_name', '=', $name)->first()->id;
         }
         if ($mobile) {
             $account_id = Account::where('mobile', '=', $mobile)->first()->id;

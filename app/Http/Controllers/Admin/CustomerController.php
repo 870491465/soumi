@@ -100,7 +100,7 @@ class CustomerController extends Controller
         $name = $request->get('name');
         $business_name = $request->get('business_name');
 
-        $builder = Account::paginate(15);
+        $builder = Account::paginate(10000);
         if ($name) {
 
             $accounts = $builder->where('person_name', '=', $name);

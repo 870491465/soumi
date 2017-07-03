@@ -29,7 +29,7 @@ class BonusController extends Controller
         $business_name = $request->get('business_name');
 
         if ($name) {
-            $account_id = Account::where('name', '=', $name)->first()->id;
+            $account_id = Account::where('person_name', '=', $name)->first()->id;
         }
         if ($mobile) {
             $account_id = Account::where('mobile', '=', $mobile)->first()->id;
