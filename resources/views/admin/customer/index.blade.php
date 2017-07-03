@@ -115,7 +115,7 @@
             <?php $i++ ?>
         @endforeach
         </tbody>
-        @if(isset($accounts->links))
+        @if(method_exists($accounts, 'links'))
         <tfoot>
         <tr>
             <th colspan="12">{!! $accounts->links() !!}</th>

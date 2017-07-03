@@ -21,6 +21,7 @@
                     <div class="field">
                         <label>代理类型:</label>
                         <select class="ui dropdown" id="afer_role" name="after_role">
+                            <option value="1">免费用户</option>
                             <option value="2">服务商</option>
                             <option value="3">运营商</option>
                             <option value="4">分公司</option>

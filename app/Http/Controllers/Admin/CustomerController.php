@@ -103,7 +103,7 @@ class CustomerController extends Controller
         $builder = Account::paginate(15);
         if ($name) {
 
-            $accounts = $builder->where('name', '=', $name);
+            $accounts = $builder->where('person_name', '=', $name);
         }
         if ($mobile) {
             $accounts = $builder->where('mobile', '=', $mobile);
