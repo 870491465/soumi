@@ -74,7 +74,8 @@ class DepositSuccessJob
             $upgrade_history = UpgradeHistory::create([
                 'account_id' => $account_id,
                 'before_role' => $before_role,
-                'after_role' => $role_id, 'is_have_bonus' => 0]);
+                'after_role' => $role_id,
+                'is_have_bonus' => 0]);
 
             $user->role_id = $role_id;
             $user->save();
@@ -96,6 +97,7 @@ class DepositSuccessJob
             $primary = Customer::where('child_id', $account_id)->first();
             if ($primary) {  //存在 找出收益金额
                 $primary_role = $primary->primaryAccount->user->role_id;   //找出上一级代理级别
+
                 $agent_role = $role_id;    //本级别
                 $bonus_setting = BonusSetting::where('primary_role', $primary_role)
                     ->where('agent_role', $agent_role)->where('level', $i)->first();
@@ -121,10 +123,47 @@ class DepositSuccessJob
                             'agent_account' => $account_id
                         ]
                     );
+
+                }
+                if ($primary_role == 2) { //如果上级是不是运营商，寻找上级是运营商增加额外权益。
+                    $this->serachOperator($primary->account_id, $amount, $account_id);
                 }
 
             }
 
         //}
+    }
+
+    public function serachOperator($account_id, $amount, $fs_account)
+    {
+        Log::info('primary_account_id='. $account_id);
+        $primary_2 = Customer::where('child_id', $account_id)->first();
+        if ($primary_2) { //存在上级
+            $primary_role = $primary_2->primaryAccount->user->role_id;   //找出上一级代理级别
+            Log::info('primary_account_role='. $primary_role);
+            if($primary_role != 3) { //判断上级是不是运营商，如果不是运营商，继续寻找上一级。
+                $this->serachOperator($primary_2->account_id, $amount, $fs_account);
+            } else
+            {
+                Log::info('primary->account_id='. $primary_2->account_id);
+                $bonus_setting = BonusSetting::where('primary_role', 3)
+                    ->where('agent_role', 2)->where('level', 2)->first();
+                $bonus_amount = 0;
+                if ($bonus_setting->is_fixed == 1) {
+                    $bonus_amount = $bonus_amount + $bonus_setting->fixed;
+                }
+                $bonus = Bonus::create(
+                    [
+                        'account_id' => $primary_2->account_id,
+                        'amount' => $bonus_amount,
+                        'bonus_setting_id' => $bonus_setting->id,
+                        'paid_amount' => $amount,
+                        'agent_account' => $fs_account
+                    ]
+                );
+            }
+        } else { //不存在上级 直接退出
+            return 0;
+        }
     }
 }
