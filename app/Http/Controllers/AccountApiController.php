@@ -221,6 +221,13 @@ class AccountApiController extends Controller
             $new_sig = $this->api_sig($mobile);
             if ($new_sig == $api_sig) {
                 $role_id = $account->user->role_id;
+                if ($role_id == 1) {
+                    $upgrade = UpgradeType::select('amount', 'role_id', 'name')->get();
+                    return response()->json([
+                        'result_code' => 200,
+                        'upgrade_type' => $upgrade->toArray()
+                    ]);
+                }
                 if ($role_id == 2) {
                     return response()->json([
                         'result_code' => 200,
