@@ -4,7 +4,7 @@
     <div class="content">
         {!! Form::open(['url' => route('postCustomerUpgrade', ['account_id' => $account->id]), 'class' => 'ui form form-horizontal ajax']) !!}
             <div class="field">
-                <div class="two fields">
+                <div class="three fields">
                     <div class="field">
                         <label>姓名:</label>
                         <input type="text" name="person_name" disabled value="{!! isset($account) ? $account->person_name : '' !!}" placeholder="姓名">
@@ -14,6 +14,16 @@
                         <input type="text" name="mobile" value="@if($account->user->role_id == 2)服务商 @elseif($account->user->role_id == 3)运营商@elseif($account->user->role_id == 4)分公司@endif
                         " disabled>
                     </div>
+
+                        <div class="field">
+                            <label>账户余额</label>
+                            @if(isset($balance))
+                            <input type="text" value="￥{!! $balance->amount !!}">
+                            @else
+                                ￥0.00
+                            @endif
+
+                        </div>
                 </div>
             </div>
             <div class="field">

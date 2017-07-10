@@ -52,6 +52,7 @@ class BonusSettingController extends Controller
         $name = $request->get('name');
         $primary_role = $request->get('primary_role');
         $agent_role = $request->get('agent_role');
+        $bottom_role = $request->get('bottom_role');
         $level = $request->get('level');
         $is_fix = $request->get('is_fixed');
         $is_rate = $request->get('is_rate');
@@ -93,6 +94,7 @@ class BonusSettingController extends Controller
         $bonus->level = $level;
         $bonus->is_fixed = $is_fix;
         $bonus->is_rate = $is_rate;
+        $bonus->bottom_role = $bottom_role;
         $bonus->rate = $rate;
         $bonus->deposit_type_id = 1;
         $bonus->fixed = $fix;

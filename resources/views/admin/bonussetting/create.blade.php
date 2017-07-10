@@ -28,10 +28,19 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="field bottom_role hide">
+                    <select class="ui dropdown" name="bottom_role">
+                        <option value="">请选择代理级别</option>
+                        @foreach($roles as $role)
+                            <option value="{!! $role->id !!}"
+                            >{!! $role->display_name !!}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
             <div class="fields">
                 <div class="field">
-                    <select class="ui dropdown" name="level">
+                    <select class="ui dropdown" id="level" onchange="levelOnchange(this)" name="level">
                         @foreach($levels as $level)
                             <option value="{!! $level->level !!}"
 
@@ -75,4 +84,14 @@
             关闭
         </div>
     </div>
+    <script>
+        function levelOnchange(obj)
+        {
+            var index = obj.selectedIndex;
+            var value = obj.options[index].value;
+            if(value == 3) {
+
+            }
+        }
+    </script>
 </div>

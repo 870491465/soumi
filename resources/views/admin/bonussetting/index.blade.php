@@ -18,9 +18,8 @@
         @foreach($bonus as $bonu)
         {!! Form::open(['url' => route('postBonusEdit', ['id' => $bonu->id]), 'class' => 'ui ajax form', 'id' => 'form'.$bonu->id]) !!}
             <div class="inline fields">
-                <div class="two wide field">
-                    <div class="ui labeled input">
-                        <label class="ui label">名称</label>
+                <div class="two wide  field">
+                    <div class="ui input">
                         <input type="text" name="name" value="{!! $bonu->name !!}" />
                     </div>
                 </div>
@@ -47,6 +46,18 @@
                     </select>
                 </div>
                 <div class="two wide field">
+                    <select class="ui dropdown" name="bottom_role">
+                        <option value="">请选择代理</option>
+                        @foreach($roles as $role)
+                            <option value="{!! $role->id !!}"
+                                    @if($bonu->bottom_role == $role->id)
+                                    selected
+                                    @endif
+                            >{!! $role->display_name !!}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="two wide field">
                     <select class="ui dropdown" name="level">
                         @foreach($levels as $level)
                             <option value="{!! $level->level !!}"
@@ -58,19 +69,19 @@
                     </select>
                 </div>
 
-                <div class="field">
+                <div class="two wide field">
                     <div class="ui right labeled input">
                         <input type="number" name="rate" value="{!! $bonu->rate * 100 !!}"/><label class="ui label">%</label>
                     </div>
                 </div>
 
-                <div class="field">
+                <div class="two wide field">
                     <div class="ui right labeled input">
                         <input type="number" value="{!! $bonu->fixed !!}" name="fixed"/>
                         <label class="ui label">￥</label>
                     </div>
                 </div>
-                <div class="one field">
+                <div class="two wide field">
                     <div class="ui mini buttons">
                         <button class="ui mini teal button" type="submit">修改</button>
                     </div>

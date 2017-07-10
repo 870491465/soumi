@@ -14,7 +14,8 @@ class LevelSeeder extends Seeder
         $statuses = [
             ['level' => '0', 'name'=> '层级0'],
             ['level' => '1', 'name' => '层级1'],
-            ['level' => '2', 'name' => '层级2']
+            ['level' => '2', 'name' => '层级2'],
+            ['level' => '3', 'name' => '层级3']
         ];
 
         DB::table('levels')->delete();

@@ -125,13 +125,58 @@ class DepositSuccessJob
                     );
 
                 }
-                if ($primary_role == 2) { //如果上级是不是运营商，寻找上级是运营商增加额外权益。
+                if ($primary_role != 3 && $primary_role != 4) { //如果上级是不是运营商 也不是分公司，寻找上级是运营商，给运营商增加额外权益。
                     $this->serachOperator($primary->account_id, $amount, $account_id);
+                }
+                if ($primary_role != 4) { //如果上级不是分公司，寻找分公司，给分公司增加权益
+                    $this->searchBranch($primary->account_id, $amount, $primary_role, $agent_role, $account_id);
                 }
 
             }
 
         //}
+    }
+
+    /**
+     * @param $account_id 上级代理
+     * @param $amount
+     * @param $primary_role
+     * @param $agent_role
+     * @param $fs_account 发生人
+     * @return int
+     */
+    public function searchBranch($account_id, $amount, $pre_role, $agent_role, $fs_account)
+    {
+        Log::info('primary_account_id2='. $account_id);
+        $primary_3 = Customer::where('child_id', $account_id)->first();
+
+        if ($primary_3) { //存在上级
+            $primary_role = $primary_3->primaryAccount->user->role_id;   //找出上一级代理级别
+            Log::info('primary_account_role2='. $primary_role);
+            if($primary_role != 4) { //判断上级是不是分公司，如果不是分公司，继续寻找上一级。
+                $this->searchBranch($primary_3->account_id, $amount, $pre_role, $agent_role, $fs_account);
+            } else
+            {
+                Log::info('primary->account_id2='. $primary_3->account_id);
+                $bonus_setting = BonusSetting::where('primary_role', 4)
+                    ->where('agent_role', $pre_role)->where('bottom_role', $agent_role)->where('level', 2)->first();
+                $bonus_amount = 0;
+                if ($bonus_setting->is_fixed == 1) {
+                    $bonus_amount = $bonus_amount + $bonus_setting->fixed;
+                }
+                Bonus::create(
+                    [
+                        'account_id' => $primary_3->account_id,
+                        'amount' => $bonus_amount,
+                        'bonus_setting_id' => $bonus_setting->id,
+                        'paid_amount' => $amount,
+                        'agent_account' => $fs_account
+                    ]
+                );
+            }
+        } else { //不存在上级 直接退出
+            return 0;
+        }
     }
 
     public function serachOperator($account_id, $amount, $fs_account)

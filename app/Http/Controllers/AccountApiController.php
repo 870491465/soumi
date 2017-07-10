@@ -15,6 +15,7 @@ use App\Models\Role;
 use App\Models\UpgradeHistory;
 use App\Models\UpgradeType;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -229,6 +230,28 @@ class AccountApiController extends Controller
                     ]);
                 }
                 if ($role_id == 2) {
+                    $diffnum = Carbon::parse($account->created_at)->diffInDays(Carbon::now(), false);
+                    if ($diffnum > 30 && $diffnum < 90) {
+                        return response()->json([
+                            'result_code' => 200,
+                            'upgrade_type' => array([
+                                'role_id' => 3,
+                                'name' => '运营商',
+                                'amount' => $upgrade_operator_amount,
+                            ],[
+                                'role_id' => 2,
+                                'name' => '服务商',
+                                'amount' => 0,
+                            ]
+                            )
+                        ]);
+                    }
+                    if ($diffnum > 90 && !isset($account->license_pic)) {
+                        return response()->json([
+                            'result_code' => 402,
+                            'message' => '此用户已无法升级，超出注册天数']
+                            );
+                    }
                     return response()->json([
                         'result_code' => 200,
                         'upgrade_type' => array([

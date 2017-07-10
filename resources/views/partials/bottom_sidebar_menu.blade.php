@@ -11,4 +11,8 @@
         <i class="users icon"></i>
         银行账户
     </a>
+    <a href="http://s.kssmhbar.com/" target="_blank" class="item">
+        <i class="users icon"></i>
+        会员列表
+    </a>
 </div>

@@ -3,10 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Account;
+use App\Models\Balance;
 use App\Models\ConvertAgentHistory;
 use App\Models\Customer;
+use App\Models\Deposit;
+use App\Models\DepositStatus;
+use App\Models\DepositType;
 use App\Models\Role;
+use App\Models\UpgradeHistory;
+use App\Models\UpgradeType;
 use App\Models\User;
+use App\Models\ZhuanzhangHistory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -200,8 +207,74 @@ class CustomerController extends Controller
     public function upgrade($id)
     {
         $account = Account::find($id);
+        $balance = Balance::where('account_id', $id)->first();
+        return view('admin.customer.upgrade_role', ['account' => $account, 'balance' => $balance]);
+    }
 
-        return view('admin.customer.upgrade_role', ['account' => $account]);
+    public function postUpgrade(Request $request, $account_id)
+    {
+        $before_role = $request->get('before_role');
+        $after_role = $request->get('after_role');
+        $is_have_bonus = $request->get('is_have_bonus');
+        if ($is_have_bonus) {
+
+            $balance = Balance::where('account_id', $account_id)->first();
+            if (!$balance) {
+                return response()->json([
+                    'status' => 'info',
+                    'message' => '1.此用户余额不足, 无法升级'
+                ]);
+            }
+            $is_have_bonus = 1;
+            $amount = UpgradeType::where('role_id', $after_role)->first()->amount;
+            $upgrade_supplort_amount = UpgradeType::find(1)->amount;
+            $upgrade_operator_amount = UpgradeType::find(2)->amount;
+            if ($before_role == 2 && $after_role == 3) {
+                $amount = $upgrade_operator_amount-$upgrade_supplort_amount;
+
+                if ($balance->amount < $amount) {
+                    return response()->json([
+                        'status' => 'info',
+                        'message' => '2.此用户余额不足, 无法升级'
+                    ]);
+                }
+            }
+            if ($after_role == 2) {
+                if ($balance->amount < $upgrade_supplort_amount) {
+                    return response()->json([
+                        'status' => 'info',
+                        'message' => '3.此用户余额不足, 无法升级'
+                    ]);
+                }
+            }
+
+            $deposit = new Deposit();
+            $deposit->account_id = $account_id;
+            $deposit->amount = $amount;
+            $deposit->upgrade_type_id = $after_role;
+            $deposit->deposit_type_id = DepositType::PULL_USE;
+            $deposit->status_id = DepositStatus::PENDING;
+            $deposit->save();
+
+            $balance->amount = $balance->amount - $amount;
+            $balance->save();
+
+        } else {
+            $is_have_bonus = 0;
+        }
+
+        $user = User::where('account_id', $account_id)->first();
+        $user->role_id = $after_role;
+        $user->save();
+        $upgrade_history = UpgradeHistory::create(['account_id' => $account_id, 'before_role' => $before_role,
+            'after_role' => $after_role, 'is_have_bonus' => $is_have_bonus]);
+        if ($upgrade_history) {
+            return response()->json([
+                'status' => 'success',
+                'message' => '升级成功',
+                'redirect' => '/admin/customer/upgrade'
+            ]);
+        }
     }
 
     public function convertAgent($id)
@@ -256,6 +329,68 @@ class CustomerController extends Controller
            'status' => 'success',
             'message' => '设置成功',
             'redirectUlr' => ''
+        ]);
+    }
+
+    public function hedgeAmount($id)
+    {
+        $account = Account::find($id);
+        $balance = Balance::where('account_id', $id)->first();
+        $accounts = Account::all();
+
+        return view('admin.customer.hedge_amount', [
+            'account' => $account,
+            'balance' => $balance,
+            'accounts' => $accounts
+        ]);
+    }
+
+    public function postHedgeAmount(Request $request, $id)
+    {
+        $rules = [
+            'amount' => 'required',
+            'collection_account' => 'required'
+        ];
+
+        $messages = [
+            'amount.required' => '请输入金额',
+            'collection_account.required' => '请选择对方账户'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return response()->json([
+               'status' => 'error',
+                'messages' => $validator->messages()->toArray()
+            ]);
+        }
+
+        $amount = $request->get('amount');
+        $collection_account = $request->get('collection_account');
+        $zhuanzhang = ZhuanzhangHistory::create([
+           'account_id' => $id,
+            'amount' => $amount,
+            'collection_account' => $collection_account
+        ]);
+
+        $balance = Balance::where('account_id', $collection_account)->first();
+        if ($balance) {
+            $balance->amount = $balance->amount + $amount;
+            $balance->save();
+        } else {
+            $balance = new Balance();
+            $balance->account_id = $collection_account;
+            $balance->amount = $amount;
+            $balance->save();
+        }
+
+        $balance = Balance::where('account_id', $id)->first();
+        $balance->amount = $balance->amount- $amount;
+        $balance->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => '转账成功'
         ]);
     }
 }

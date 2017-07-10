@@ -51,13 +51,13 @@
             <th class="center aligned">姓名</th>
             <th class="center aligned">身份证</th>
             <th class="center aligned">手机号</th>
-            <th class="center aligned">公司名称</th>
             <th class="center aligned">级别</th>
             <th class="center aligned">状态</th>
             <th class="center aligned">详情</th>
             <th class="center aligned">设置</th>
             <th class="center aligned">升级</th>
             <th class="center aligned">转代理</th>
+            <th class="center aligned">转帐</th>
             <th class="center aligned">提交日期</th>
         </tr>
         </thead>
@@ -69,7 +69,6 @@
                 <td class="center aligned">{!! $account->person_name !!}</td>
                 <td class="center aligned">{!! $account->license_no !!}</td>
                 <td class="center aligned">{!! $account->mobile !!}</td>
-                <td class="center aligned">{!! $account->business_name !!}</td>
                 <td class="center aligned">
                     @if($account->user->role_id == 1)
                         免费用户
@@ -110,7 +109,14 @@
                        data-href="{!! route('customerConvertAgent', ['id' => $account->id]) !!}">
                         <i class="setting icon"></i>转代理</a>
                 </td>
-                <td class="center aligned">{!! $account->created_at !!}</td>
+                <td class="center aligned">
+                    <a href="javascript:void(0);" data-modal-id="EditAttendee"
+                       class="loadModal ui mini teal icon button"
+                       data-href="{!! route('customerHedge', ['id' => $account->id]) !!}">
+                        <i class="setting icon"></i>转账</a>
+                </td>
+                <td class="center aligned">{!! $account->created_at !!}
+                </td>
             </tr>
             <?php $i++ ?>
         @endforeach

@@ -128,7 +128,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Adm
     ]);
     Route::post('/customer/upgrade/{id}', [
        'as' => 'postCustomerUpgrade',
-        'uses' => 'UpgradeHistoryController@store'
+        'uses' => 'CustomerController@postUpgrade'
     ]);
 
     Route::get('/customer/convert/{id}', [
@@ -138,6 +138,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Adm
 
     Route::post('/customer/convert', 'CustomerController@postConvert');
 
+    Route::get('/customer/hedge/{id}', [
+       'as' => 'customerHedge',
+        'uses' => 'CustomerController@hedgeAmount'
+    ]);
+
+    Route::post('/customer/hedge/{id}', [
+        'as' => 'postCustomerHedge',
+        'uses' => 'CustomerController@postHedgeAmount'
+    ]);
 
     Route::get('/bonus', 'BonusController@index');
     Route::post('/bonus/search', 'BonusController@search');
