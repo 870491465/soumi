@@ -1,4 +1,4 @@
-<div class="ui bottom demo {!! session('color') !!} four item labeled icon sidebar menu overlay visible">
+<div class="ui bottom demo {!! session('color') !!} three item labeled icon sidebar menu overlay visible">
     <a href="/account/balance" class="ui red item">
         <i class="university icon"></i>
         账户
@@ -7,10 +7,10 @@
         <i class="yen icon"></i>
         提现
     </a>
-    <a class="item" href="/account/bring">
+    {{--<a class="item" href="/account/bring">
         <i class="yen icon"></i>
         转账
-    </a>
+    </a>--}}
     <a href="http://s.kssmhbar.com/" target="_blank" class="item">
         <i class="users icon"></i>
         会员列表
