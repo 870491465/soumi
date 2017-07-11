@@ -53,18 +53,19 @@
         <tr>
             <th>序号</th>
             <th>姓名</th>
+            <th>级别</th>
             <th>手机号</th>
-            <th>公司</th>
             <th>取款金额</th>
             <th>取款信息</th>
             <th>状态</th>
+            <th>操作</th>
             <th>提交日期</th>
         </tr>
         </thead>
         <tbody>
         <?php $i = 1 ?>
         @foreach($transfers as $transfer)
-
+            {!! Form::open(['url' => '/admin/transfer/update/'. $transfer->account_id .'/'.$transfer->id, 'class' => 'ui form ajax']) !!}
             <tr
                 @if(\Carbon\Carbon::parse($transfer->created_at)->addDay(15) <= \Carbon\Carbon::now()
                 && $transfer->status_id == \App\Models\TransferStatus::PENDING)
@@ -73,8 +74,17 @@
             >
                 <td><?php echo $i ?></td>
                 <td>{!! $transfer->account->person_name !!}</td>
+                <td> @if ($transfer->account->user->role_id ==1)
+                        免费用户
+                     @elseif($transfer->account->user->role_id ==2)
+                        服务商
+                     @elseif($transfer->account->user->role_id ==3)
+                        运营商
+                     @elseif($transfer->account->user->role_id ==4)
+                        分公司
+                     @endif
+                </td>
                 <td>{!! $transfer->account->mobile !!}</td>
-                <td>{!! $transfer->account->business_name !!}</td>
                 <td>{!! $transfer->amount !!}</td>
                 <td>
                     <div class="ui list">
@@ -98,8 +108,10 @@
                 <td>
                     {!! $transfer->status->display_name !!}
                 </td>
+                <td><button type="submit" class="ui teal button {!! $transfer->status_id == 3 ? 'disabled' : '' !!}">完成</button></td>
                 <td>{!! $transfer->created_at !!}</td>
             </tr>
+            {!! Form::close() !!}
             <?php $i++ ?>
         @endforeach
         </tbody>

@@ -44,6 +44,25 @@ class TransferController extends Controller
         return view('admin.transfer.index', ['transfers' => $transfers]);
     }
 
+    public function update($account_id, $id)
+    {
+        $transfer = Transfer::where('id', $id)->where('account_id', $account_id)->first();
+        if ($transfer) {
+            $transfer->status_id = TransferStatus::SUCCESS;
+            $transfer->save();
+            return response()->json([
+                'status' => 'success',
+                'message' => '处理完成',
+                'redirectUrl' => ''
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'success',
+                'message' => '处理失败'
+            ]);
+        }
+    }
+
     public function export()
     {
         $transfers = Transfer::where('created_at', '<', Carbon::now()->addDay(-15))

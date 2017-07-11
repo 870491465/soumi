@@ -174,6 +174,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Adm
     Route::post('/transfer/search', 'TransferController@search');
     Route::post('/transfer/export', 'TransferController@export');
     Route::post('/transfer/success', 'TransferController@transferSuccess');
+    Route::post('/transfer/update/{account_id}/{id}', 'TransferController@update');
 
     Route::get('/setting/smscontent', 'SmsContentController@show');
     Route::post('/setting/smscontent', 'SmsContentController@store');
