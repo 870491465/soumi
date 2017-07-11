@@ -8,28 +8,29 @@
     @include('partials.child_top_siderbar_menu')
 @stop
 @section('main-content')
-        @if(isset($bonuses))
-        @foreach($bonuses as $bonus)
+    <a href="/account/bring/create" class="ui full teal button">转账</a>
+    @if(isset($brings))
+        @foreach($brings as $bring)
             <div class="ui teal segment">
                 <div class="ui gray divided list">
                     <div class="item">
                         <div class="right floated content">
                             <div class="meta">
-                                <span>发生人：{!! $bonus->childAccount->person_name !!}</span>
+                                <span class="header">收款金额:￥{!! $bring->amount !!}</span>
                             </div>
                         </div>
                         <div class="content">
-                            <div class="header">权益金额:￥{!! $bonus->amount !!}</div>
+                            <div class="header">收款账户：{!! $bring->account->person_name !!}</div>
                         </div>
                         <br>
                         <div class="content">
-                            日期:{!! $bonus->created_at !!}
+                            日期:{!! $bring->created_at !!}
                         </div>
                     </div>
                 </div>
             </div>
-         @endforeach
-         @endif
-     {{--   </tbody>
-    </table>--}}
+        @endforeach
+    @endif
+    {{--   </tbody>
+   </table>--}}
 @stop

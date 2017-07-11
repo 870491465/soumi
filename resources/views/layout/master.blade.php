@@ -154,6 +154,9 @@
         .ui.inverted.menu .item, .ui.inverted.menu .item>a:not(.ui) {
             color:#fff;
         }
+        .ui.grid>.column:not(.row), .ui.grid>.row>.column {
+            padding-right: 0rem;
+        }
     </style>
 </head>
 <body class="pushable">

@@ -24,13 +24,13 @@ class DepositController extends Controller
 
     public function index()
     {
-        /*$name = '陈勇';
-        $mobile = '18099675005';
-        $sfz = '650102196810051659';
+        $name = '李三';
+        $mobile = '15905507737';
+        $sfz = '340322198309210817';
         $sec_key = env('SECRET_KEY');
         $msg = implode('|', array($name, $sfz, $sec_key, $mobile));
         $new_sig = md5($msg);
-        dd($new_sig);*/
+        dd($new_sig);
         $deposits = Deposit::orderBy('created_at','desc')->orderBy('status_id', 'asc')->paginate(15);
         return view('admin.deposits.index', ['deposits' => $deposits]);
     }

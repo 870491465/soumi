@@ -17,27 +17,27 @@
         <div class="item"><h5 class="header">权益</h5></div>
     </div>
     @if(isset($bonuses))
-    <div class="ui segment">
         @foreach($bonuses as $bonus)
-            <div class="ui gray divided list">
-                <div class="item">
-                    <div class="right floated content">
-                        <div class="meta">
-                            <span>发生人：{!! $bonus->childAccount->person_name !!}</span>
+            <div class="ui teal segment">
+                <div class="ui gray divided list">
+                    <div class="item">
+                        <div class="right floated content">
+                            <div class="meta">
+                                <span>发生人：{!! $bonus->childAccount->person_name !!}</span>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="header">权益金额:￥{!! $bonus->amount !!}</div>
+                        </div>
+                        <br>
+                        <div class="content">
+                            日期:{!! $bonus->created_at !!}
                         </div>
                     </div>
-                    <div class="content">
-                        <div class="header">权益金额:￥{!! $bonus->amount !!}</div>
-                    </div>
-                    <br>
-                    <div class="content">
-                        日期:{!! $bonus->created_at !!}
-                    </div>
+                    <div class="ui divider"></div>
                 </div>
-                <div class="ui divider"></div>
             </div>
         @endforeach
-    </div>
     @else
         无权益
     @endif

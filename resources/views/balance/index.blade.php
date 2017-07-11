@@ -30,7 +30,9 @@
                 <div class="extra content">
                     <div class="ui two buttons">
                         <button class="ui basic green button openModal">提现</button>
-                        <a class="ui basic red button" href="/account/bonus">收益记录</a>
+                        <a href="/account/bank" class="ui basic red button">
+                            银行账户
+                        </a>
                     </div>
                 </div>
             </div>

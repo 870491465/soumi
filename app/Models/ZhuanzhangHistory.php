@@ -10,4 +10,9 @@ class ZhuanzhangHistory extends Model
     protected $table = 'zhuanzhang_historys';
 
     protected $fillable = ['account_id', 'amount', 'collection_account'];
+
+    public function account()
+    {
+        return $this->hasOne(Account::class, 'id', 'collection_account');
+    }
 }

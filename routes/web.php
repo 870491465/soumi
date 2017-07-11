@@ -83,6 +83,10 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth']], function () {
 
     Route::post('/upload', 'FileUploadController@store');
 
+    Route::get('/bring', 'ZhuanzhangController@index');
+    Route::get('/bring/create', 'ZhuanzhangController@create');
+    Route::post('/bring/create', 'ZhuanzhangController@store');
+
 });
 
 /**

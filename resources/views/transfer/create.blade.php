@@ -8,9 +8,18 @@
     @include('partials.child_top_siderbar_menu')
 @stop
 @section('main-content')
+
     <div class="ui grid">
         <div class="column">
             {!! Form::open(['url' => '/account/transfer', 'method' => 'post', 'class' => 'ui ajax form', 'id' => 'form1']) !!}
+            <div class="field">
+                <div class="ui info message">
+                    <div class="header">提现说明</div>
+                    <ui class="list">
+                        <li>公司收取综合管理费10%</li>
+                    </ui>
+                </div>
+            </div>
             <div class="field">
                 <label>账户余额:</label>
                 <div class="ui disabled icon input">
