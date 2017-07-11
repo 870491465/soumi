@@ -229,6 +229,21 @@ class AccountApiController extends Controller
                         'upgrade_type' => $upgrade->toArray()
                     ]);
                 }
+                if ($role_id == 4) {
+                    return response()->json([
+                        'result_code' => 200,
+                        'upgrade_type' => array([
+                            'role_id' => 3,
+                            'name' => '运营商',
+                            'amount' => 0,
+                        ],[
+                            'role_id' => 2,
+                            'name' => '服务商',
+                            'amount' => 0,
+                        ]
+                        )
+                    ]);
+                }
                 if ($role_id == 2) {
                     $diffnum = Carbon::parse($account->created_at)->diffInDays(Carbon::now(), false);
                     if ($diffnum > 30 && $diffnum < 90) {

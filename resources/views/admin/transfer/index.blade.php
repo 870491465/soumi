@@ -64,6 +64,7 @@
         <tbody>
         <?php $i = 1 ?>
         @foreach($transfers as $transfer)
+
             <tr
                 @if(\Carbon\Carbon::parse($transfer->created_at)->addDay(15) <= \Carbon\Carbon::now()
                 && $transfer->status_id == \App\Models\TransferStatus::PENDING)
