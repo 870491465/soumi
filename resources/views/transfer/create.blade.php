@@ -16,7 +16,7 @@
                 <div class="ui info message">
                     <div class="header">提现说明</div>
                     <ui class="list">
-                        <li>公司收取综合管理费10%</li>
+                        <li>提现时公司收取5%的综合管理费和5%的发票押金。</li>
                     </ui>
                 </div>
             </div>
