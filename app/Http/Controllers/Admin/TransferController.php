@@ -84,7 +84,7 @@ class TransferController extends Controller
                 {
                     if ($transfer->account->user->role_id == 3 || $transfer->account->user->role_id == 4)
                     {
-                        if(Carbon::now()->diffInDays($transfer->created_at)>= 1)
+                        if(Carbon::now()->addDay(1)->diffInDays($transfer->created_at)>= 1)
                         {
                             $sheet->row($i, [
                                 $transfer->account->person_name,
@@ -96,7 +96,7 @@ class TransferController extends Controller
                             ]);
                         }
                     } else {
-                        if(Carbon::now()->diffInDays($transfer->created_at)>=15) {
+                        if(Carbon::now()->addDay(1)->diffInDays($transfer->created_at)>=15) {
                             $sheet->row($i, [
                                 $transfer->account->person_name,
                                 $transfer->amount,
@@ -130,13 +130,13 @@ class TransferController extends Controller
 
             if ($transfer->account->user->role_id == 3 || $transfer->account->user->role_id == 4)
             {
-                if(Carbon::now()->diffInDays($transfer->created_at)>= 1)
+                if(Carbon::now()->addDay(1)->diffInDays($transfer->created_at)>= 1)
                 {
                     $transfer_update->status_id = TransferStatus::SUCCESS;
                     $transfer_update->save();
                 }
             } else {
-                if(Carbon::now()->diffInDays($transfer->created_at)>= 15) {
+                if(Carbon::now()->addDay(1)->diffInDays($transfer->created_at)>= 15) {
                     $transfer_update->status_id = TransferStatus::SUCCESS;
                     $transfer_update->save();
                 }

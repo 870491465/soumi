@@ -68,11 +68,11 @@
             {!! Form::open(['url' => '/admin/transfer/update/'. $transfer->account_id .'/'.$transfer->id, 'class' => 'ui form ajax']) !!}
             <tr
                 @if($transfer->account->user->role_id == 3 || $transfer->account->user->role_id == 4)
-                    @if(\Carbon\Carbon::now()->diffInDays($transfer->created_at) >= 1
+                    @if(\Carbon\Carbon::now()->addDay(1)->diffInDays($transfer->created_at) >= 1
                         && $transfer->status_id == \App\Models\TransferStatus::PENDING)
                         class="warning"
                     @endif
-                @elseif(\Carbon\Carbon::now()->diffInDays($transfer->created_at) >= 15 && $transfer->status_id == \App\Models\TransferStatus::PENDING)
+                @elseif(\Carbon\Carbon::now()->addDay(1)->diffInDays($transfer->created_at) >= 15 && $transfer->status_id == \App\Models\TransferStatus::PENDING)
                     class="warning"
                 @endif
             >

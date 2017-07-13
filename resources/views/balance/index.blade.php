@@ -29,7 +29,7 @@
                 </div>
                 <div class="extra content">
                     <div class="ui two buttons">
-                        <a href="/account/transfer" class="ui basic green button openModal">提现</a>
+                        <a href="/account/transfer/create" class="ui basic green button openModal">提现</a>
                         <a href="/account/bank" class="ui basic red button">
                             银行账户
                         </a>
