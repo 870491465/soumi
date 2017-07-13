@@ -65,8 +65,7 @@ class TransferController extends Controller
 
     public function export()
     {
-        $transfers = Transfer::where('created_at', '<', Carbon::now()->addDay(-15))
-            ->where('status_id', TransferStatus::PENDING)->get();
+        $transfers = Transfer::where('status_id', TransferStatus::PENDING)->get();
         Excel::create(Carbon::now()->toDateString().'提现信息表', function ($excel) use ($transfers) {
             $excel->setTitle('提款信息表');
             // Chain the setters
@@ -83,14 +82,33 @@ class TransferController extends Controller
                 $i = 2;
                 foreach($transfers as $transfer)
                 {
-                    $sheet->row($i, [
-                        $transfer->account->person_name,
-                        $transfer->amount,
-                        $transfer->bankInfo->bank_name,
-                        $transfer->bankInfo->card_no,
-                        $transfer->bankInfo->open_point,
-                        $transfer->created_at
-                    ]);
+                    if ($transfer->account->user->role_id == 3 || $transfer->account->user->role_id == 4)
+                    {
+                        if(Carbon::now()->diffInDays($transfer->created_at)>=2)
+                        {
+                            $sheet->row($i, [
+                                $transfer->account->person_name,
+                                $transfer->amount,
+                                $transfer->bankInfo->bank_name,
+                                $transfer->bankInfo->card_no,
+                                $transfer->bankInfo->open_point,
+                                $transfer->created_at
+                            ]);
+                        }
+                    } else {
+                        if(Carbon::now()->diffInDays($transfer->created_at)>=15) {
+                            $sheet->row($i, [
+                                $transfer->account->person_name,
+                                $transfer->amount,
+                                $transfer->bankInfo->bank_name,
+                                $transfer->bankInfo->card_no,
+                                $transfer->bankInfo->open_point,
+                                $transfer->created_at
+                            ]);
+                        }
+
+                    }
+
                     $i++;
                 }
                 // Set gray background on first row
@@ -104,19 +122,31 @@ class TransferController extends Controller
 
     public function transferSuccess()
     {
-        $transfers = Transfer::where('created_at', '<', Carbon::now()->addDay(-15))
-            ->where('status_id', TransferStatus::PENDING)->get();
+        $transfers = Transfer::where('status_id', TransferStatus::PENDING)->get();
         foreach($transfers as $transfer)
         {
             $transfer_id = $transfer->id;
-                $transfer_update = Transfer::find($transfer_id);
-            $transfer_update->status_id = TransferStatus::SUCCESS;
-            $transfer_update->save();
+            $transfer_update = Transfer::find($transfer_id);
+
+            if ($transfer->account->user->role_id == 3 || $transfer->account->user->role_id == 4)
+            {
+                if(Carbon::now()->diffInDays($transfer->created_at)>=2)
+                {
+                    $transfer_update->status_id = TransferStatus::SUCCESS;
+                    $transfer_update->save();
+                }
+            } else {
+                if(Carbon::now()->diffInDays($transfer->created_at)>=15) {
+                    $transfer_update->status_id = TransferStatus::SUCCESS;
+                    $transfer_update->save();
+                }
+            }
         }
 
         return response()->json([
             'status' => 'success',
-            'message' => '完成今日提现'
+            'message' => '完成今日提现',
+            'redirectUrl' => ''
         ]);
     }
 }

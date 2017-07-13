@@ -22,7 +22,13 @@
                     </div>
                     <br>
                     <div class="right floated content">
-                        <div class="meta">到帐日期:{!! \Carbon\Carbon::parse($transfer->created_at)->addDay(15)->format('Y-m-d') !!}</div>
+                        <div class="meta">到帐日期:
+                            @if($account->user->role_id == 3 || $account->user->role_id == 4)
+                            {!! \Carbon\Carbon::parse($transfer->created_at)->addDay(1)->format('Y-m-d') !!}
+                            @else
+                                {!! \Carbon\Carbon::parse($transfer->created_at)->addDay(15)->format('Y-m-d') !!}
+                            @endif
+                        </div>
                     </div>
                     <div class="content">
                         取款日期:{!! $transfer->created_at !!}

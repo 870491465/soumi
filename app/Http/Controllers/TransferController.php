@@ -18,7 +18,8 @@ class TransferController extends Controller
         $account_id = Auth::user()->account_id;
         $account = Account::find($account_id);
         $transfers = Transfer::where('account_id', $account_id)->get();
-        return view('transfer.index', ['transfers' => $transfers, 'account' => $account, 'title' => '取款记录']);
+        return view('transfer.index', ['transfers' => $transfers,
+            'account' => $account, 'title' => '取款记录']);
     }
 
     public function create()
@@ -59,10 +60,15 @@ class TransferController extends Controller
         $transfer->account_bank_id = $account_bank_id;
         $transfer->status_id = TransferStatus::PENDING;
         $transfer->save();
-
+        $role_id = Auth::user()->role_id;
+        if ($role_id == 3 || $role_id == 4) {
+            $day = "T+1";
+        } else {
+            $day = "T+15";
+        }
         return response()->json([
             'status' => 'success',
-            'message' => '提交成功',
+            'message' => '提交成功,到帐周期为'.$day,
             'redirectUrl' => '/account/transfer'
         ]);
     }

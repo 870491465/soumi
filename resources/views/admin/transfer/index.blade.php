@@ -67,9 +67,13 @@
         @foreach($transfers as $transfer)
             {!! Form::open(['url' => '/admin/transfer/update/'. $transfer->account_id .'/'.$transfer->id, 'class' => 'ui form ajax']) !!}
             <tr
-                @if(\Carbon\Carbon::parse($transfer->created_at)->addDay(15) <= \Carbon\Carbon::now()
-                && $transfer->status_id == \App\Models\TransferStatus::PENDING)
-                  class="warning"
+                @if($transfer->account->user->role_id == 3 || $transfer->account->user->role_id == 4)
+                    @if(\Carbon\Carbon::now()->diffInDays($transfer->created_at) >= 2
+                        && $transfer->status_id == \App\Models\TransferStatus::PENDING)
+                        class="warning"
+                    @endif
+                @elseif(\Carbon\Carbon::now()->diffInDays($transfer->created_at) >= 15 && $transfer->status_id == \App\Models\TransferStatus::PENDING)
+                    class="warning"
                 @endif
             >
                 <td><?php echo $i ?></td>
