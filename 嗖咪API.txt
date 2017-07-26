@@ -20,7 +20,7 @@ mobile: 手机号
 1，用户升级API
 
 url:        http://39.108.12.163/api/account/promote
-data:       name, mobile, identity_card_number, amount, api_sig
+data:       name, mobile, identity_card_number, amount, api_sig, agent_mobile(代理人手机号)
 method :    post
 response:   {result_code: XXX} 
 

@@ -25,7 +25,10 @@ class TransactionEventSubscriber
                 ],
             'App\Listeners\TransactionEventSubscriber@Transaction'
         );
-
+        $events->listen(
+            ['App\Events\DepositCreated'],
+            'App\Listeners\TransactionEventSubscriber@handelSms'
+        );
         $events->listen(
             'App\Events\DepositStatusUpdate',
             'App\Listeners\TransactionEventSubscriber@handleDeposit'
@@ -51,6 +54,12 @@ class TransactionEventSubscriber
      * @param $event
      */
     public function handleUpgradeHistoryCreated($event)
+    {
+        $model = $event->model;
+
+    }
+
+    public function handelSms($event)
     {
         $model = $event->model;
 
