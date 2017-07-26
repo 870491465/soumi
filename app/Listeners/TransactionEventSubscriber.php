@@ -13,6 +13,7 @@ use App\Jobs\BalanceJob;
 use App\Jobs\BalanceTransactionJob;
 use App\Jobs\BalanceTransactionUpdateJob;
 use App\Jobs\DepositSuccessJob;
+use App\Jobs\UpgradeSmsJob;
 use App\Models\DepositStatus;
 use Illuminate\Support\Facades\Log;
 
@@ -62,7 +63,8 @@ class TransactionEventSubscriber
     public function handelSms($event)
     {
         $model = $event->model;
-
+        $job = (new UpgradeSmsJob($model));
+        dispatch($job);
     }
 
     public function handleBalanceTransactionCreated($event)
