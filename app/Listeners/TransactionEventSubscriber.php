@@ -26,10 +26,10 @@ class TransactionEventSubscriber
                 ],
             'App\Listeners\TransactionEventSubscriber@Transaction'
         );
-        $events->listen(
+        /*$events->listen(
             ['App\Events\DepositCreated'],
             'App\Listeners\TransactionEventSubscriber@handelSms'
-        );
+        );*/
         $events->listen(
             'App\Events\DepositStatusUpdate',
             'App\Listeners\TransactionEventSubscriber@handleDeposit'

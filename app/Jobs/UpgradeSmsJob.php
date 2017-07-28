@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Account;
+use App\Models\Customer;
 use App\Models\SmsContent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
