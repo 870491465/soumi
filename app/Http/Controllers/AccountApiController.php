@@ -123,12 +123,23 @@ class AccountApiController extends Controller
                     DB::rollBack();
                 }
             } else {
-                if ($amount != $upgrade_operator_amount-$upgrade_supplort_amount) {
-                    return response()->json([
-                        'result_code' => '402',
-                        'message' => '金额有误，无法升级。请与客服联系!'
-                    ]);
+                $diffnum = Carbon::parse($account->created_at)->diffInDays(Carbon::now(), false);
+                if ($diffnum > 30 && $diffnum < 90) {
+                    if ($amount != $upgrade_operator_amount) {
+                        return response()->json([
+                            'result_code' => '402',
+                            'message' => '金额有误，无法升级。请与客服联系!'
+                        ]);
+                    }
+                } else {
+                    if ($amount != $upgrade_operator_amount-$upgrade_supplort_amount) {
+                        return response()->json([
+                            'result_code' => '402',
+                            'message' => '金额有误，无法升级。请与客服联系!'
+                        ]);
+                    }
                 }
+
                 DB::beginTransaction();
                 try
                 {
