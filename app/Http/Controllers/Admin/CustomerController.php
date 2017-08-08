@@ -137,27 +137,19 @@ class CustomerController extends Controller
 
     public function update(Request $request, $id)
     {
-        $account_id = Auth::user()->account_id;
+        $account_id = $id;
         $rules = [
             'mobile' => 'required',
             'mobile' => 'regex:/^1[34578][0-9]{9}$/',
             'person_name' => 'required',
             'identity_card' => 'required|min:15',
-            'identity_card_pic' => 'required',
-            'business_name' => 'required',
-            'license_no' => 'required',
-            'license_pic' => 'required'
         ];
         $messages = [
             'mobile.required' => '手机号不能为空',
             'mobile.regex' => '手机格式不正确',
             'person_name.required' => '姓名不能为空',
             'identity_card.required' => '身份证号不能为空',
-            'identity_car.min' => '身份证格式不正确',
-            'identity_card_pic.required' => '请上传身份证',
-            'license_pic.required' => '请上传营业执照',
-            'business_name.required' => '公司名称不能为空',
-            'license_no.required' => '公司营业执照注册号不能为空',
+            'identity_car.min' => '身份证格式不正确'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
