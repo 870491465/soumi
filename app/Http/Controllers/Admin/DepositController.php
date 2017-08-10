@@ -90,7 +90,7 @@ class DepositController extends Controller
 
     public function delete(Request $request, $id)
     {
-        $deposit = Deposit::find($id);
+        $deposit = Deposit::find($id)->delete();
         $deposit->status_id = 5;
         $deposit->save();
         return response()->json([

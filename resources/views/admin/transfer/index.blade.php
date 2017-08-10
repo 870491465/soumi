@@ -119,10 +119,10 @@
             <?php $i++ ?>
         @endforeach
         </tbody>
-        @if(isset($transfer->links))
+        @if(isset($transfers->links))
         <tfoot>
         <tr>
-            <th>{!! $transfer->links() !!}</th>
+            <th>{!! $transfers->links() !!}</th>
         </tr>
         </tfoot>
         @endif
