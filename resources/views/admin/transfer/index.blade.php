@@ -122,7 +122,7 @@
         @if(method_exists($transfers,'links'))
         <tfoot>
         <tr>
-            <th>{!! $transfers->links() !!}</th>
+            <th colspan="9">{!! $transfers->links() !!}</th>
         </tr>
         </tfoot>
         @endif
