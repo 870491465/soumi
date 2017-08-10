@@ -90,7 +90,7 @@ class TransferController extends Controller
                                 $transfer->account->person_name,
                                 $transfer->amount,
                                 $transfer->bankInfo->bank_name,
-                                $transfer->bankInfo->card_no,
+                                $transfer->bankInfo->card_no." ",
                                 $transfer->bankInfo->open_point,
                                 $transfer->created_at
                             ]);
@@ -101,7 +101,7 @@ class TransferController extends Controller
                                 $transfer->account->person_name,
                                 $transfer->amount,
                                 $transfer->bankInfo->bank_name,
-                                $transfer->bankInfo->card_no,
+                                $transfer->bankInfo->card_no." ",
                                 $transfer->bankInfo->open_point,
                                 $transfer->created_at
                             ]);

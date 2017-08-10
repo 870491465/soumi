@@ -49,7 +49,7 @@
         <tr>
             <th class="center aligned">序号</th>
             <th class="center aligned">姓名</th>
-            <th class="center aligned">身份证</th>
+            <th class="center aligned">余额</th>
             <th class="center aligned">手机号</th>
             <th class="center aligned">级别</th>
             <th class="center aligned">状态</th>
@@ -67,7 +67,7 @@
             <tr>
                 <td class="center aligned"><?php echo $i ?></td>
                 <td class="center aligned">{!! $account->person_name !!}</td>
-                <td class="center aligned">{!! $account->license_no !!}</td>
+                <td class="center aligned">{!! isset($account->balance) ? $account->balance->amount : '0.00' !!}</td>
                 <td class="center aligned">{!! $account->mobile !!}</td>
                 <td class="center aligned">
                     @if($account->user->role_id == 1)
