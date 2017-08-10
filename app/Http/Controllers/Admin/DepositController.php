@@ -31,7 +31,7 @@ class DepositController extends Controller
         $msg = implode('|', array($name, $sfz, $sec_key, $mobile));
         $new_sig = md5($msg);
         dd($new_sig);*/
-        $deposits = Deposit::orderBy('created_at','desc')->orderBy('status_id', 'asc')->paginate(15);
+        $deposits = Deposit::where('status_id', '<>', 5)->orderBy('created_at','desc')->orderBy('status_id', 'asc')->paginate(15);
         return view('admin.deposits.index', ['deposits' => $deposits]);
     }
 
@@ -88,6 +88,18 @@ class DepositController extends Controller
 
     }
 
+    public function delete(Request $request, $id)
+    {
+        $deposit = Deposit::find($id);
+        $deposit->status_id = 5;
+        $deposit->save();
+        return response()->json([
+            'status' => 'success',
+            'message' => '删除成功',
+            'redirectUrl' => ''
+        ]);
+    }
+
     public function update(Request $request, $id)
     {
         $deposit = Deposit::find($id);
@@ -97,9 +109,17 @@ class DepositController extends Controller
 
         if ($status == DepositStatus::FAILD) {
             $account_id = $deposit->account_id;
-            $account = Account::find($account_id);
-            $account->status = 3;
-            $account->save();
+            $balance = Balance::where('account_id', $account_id)->first();
+
+            if (!isset($balance)) {
+                $balance = new Balance();
+                $balance->account_id = $account_id;
+                $balance->amount = $deposit->amount;
+            } else {
+                $balance->amount = $balance->amount+$deposit->amount;
+            }
+
+            $balance->save();
            // $this->handleDeposit($deposit);
         }
 

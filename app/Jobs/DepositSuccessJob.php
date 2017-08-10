@@ -114,6 +114,16 @@ class DepositSuccessJob
                     if ($bonus_setting->is_fixed == 1) {
                         $bonus_amount = $bonus_amount + $bonus_setting->fixed;
                     }
+                    if ($amount == 30000) {
+                        if ($primary_role == 3) //如果上级代理为运营商
+                        {
+                            $bonus_amount = $bonus_amount - 4500;
+                        }
+                        if ($primary_role == 4) { //如果为分公司
+                            $bonus_amount = $bonus_amount - 5400;
+                        }
+                    }
+
                     $bonus = Bonus::create(
                         [
                             'account_id' => $primary->account_id,
@@ -163,6 +173,9 @@ class DepositSuccessJob
                 $bonus_amount = 0;
                 if ($bonus_setting->is_fixed == 1) {
                     $bonus_amount = $bonus_amount + $bonus_setting->fixed;
+                }
+                if ($amount == 30000) {
+                    $bonus_amount = $bonus_amount - 900;
                 }
                 Bonus::create(
                     [

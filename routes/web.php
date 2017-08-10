@@ -163,6 +163,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Adm
     ]);
 
     Route::get('/deposit', 'DepositController@index');
+    Route::post('/deposit/{id}/delete', 'DepositController@delete');
     Route::get('/deposit/{id}', 'DepositController@show');
     Route::post('/deposit/{id}', 'DepositController@update');
     Route::post('/deposit/search', 'DepositController@search');

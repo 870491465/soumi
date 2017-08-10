@@ -93,7 +93,10 @@
                     @if ($deposit->status_id == 2)
                         <a class="ui small button loadModal" href="javascript:void(0)" data-href="/admin/deposit/{!! $deposit->id !!}">审核</a>
                      @endif
-
+                    <form action="/admin/deposit/{!! $deposit->id !!}/delete" method="post" class="ajax">
+                        <button type="submit" class="ui small button ">删除</button>
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                    </form>
                 </td>
                 <td>{!! $deposit->created_at !!}</td>
             </tr>
