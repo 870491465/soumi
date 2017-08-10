@@ -119,7 +119,7 @@
             <?php $i++ ?>
         @endforeach
         </tbody>
-        @if(isset($transfers->links))
+        @if(method_exists($transfers,'links'))
         <tfoot>
         <tr>
             <th>{!! $transfers->links() !!}</th>
