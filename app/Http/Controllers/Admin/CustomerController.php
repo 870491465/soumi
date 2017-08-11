@@ -125,8 +125,15 @@ class CustomerController extends Controller
     public function show($id)
     {
         $account = Account::find($id);
+
+        $name = $account->name;
+        $mobile = $account->mobile;
+        $sfz = $account->identity_card;
+        $sec_key = env('SECRET_KEY');
+        $msg = implode('|', array($name, $sfz, $sec_key, $mobile));
+        $new_sig = md5($msg);
         if ($account) {
-            return view('admin.authentication.detail', ['account' => $account]);
+            return view('admin.authentication.detail', ['account' => $account, 'sig' => $new_sig]);
         } else {
             return response()->json([
                 'status' => 'error',

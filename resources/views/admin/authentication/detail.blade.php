@@ -57,7 +57,10 @@
                     </div>
                 </div>
             </div>
-
+            <div class="field">
+                <label>sig</label>
+                <input type="text" name ="sig" value="{!! $sig !!}" />
+            </div>
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
             <input id="license_pic"  type="hidden" name="license_pic" value="{!! $account->license_pic !!}">
             <input id="identity_card_pic"  type="hidden" name="identity_card_pic" value="{!! $account->identity_card_pic !!}">
