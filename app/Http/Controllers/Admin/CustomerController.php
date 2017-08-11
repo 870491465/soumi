@@ -126,7 +126,7 @@ class CustomerController extends Controller
     {
         $account = Account::find($id);
 
-        $name = $account->name;
+        $name = $account->person_name;
         $mobile = $account->mobile;
         $sfz = $account->identity_card;
         $sec_key = env('SECRET_KEY');
