@@ -188,6 +188,11 @@ class CustomerController extends Controller
         $account->status = 1;
         $account->save();
 
+        $user = User::where('account_id', $account_id)->first();
+        $user->mobile = $mobile;
+        $user->save();
+
+
         return response()->json([
             'status' => 'success',
             'message' => '提交成功',
