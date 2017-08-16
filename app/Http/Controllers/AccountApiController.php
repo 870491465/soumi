@@ -257,13 +257,13 @@ class AccountApiController extends Controller
                 }
                 if ($role_id == 2) {
                     $diffnum = Carbon::parse($account->created_at)->diffInDays(Carbon::now(), false);
-                    if ($diffnum > 30 && $diffnum < 90) {
+                    if ($diffnum < 30) {
                         return response()->json([
                             'result_code' => 200,
                             'upgrade_type' => array([
                                 'role_id' => 3,
                                 'name' => '运营商',
-                                'amount' => $upgrade_operator_amount,
+                                'amount' => $upgrade_operator_amount - $upgrade_supplort_amount,
                             ],[
                                 'role_id' => 2,
                                 'name' => '服务商',
@@ -271,26 +271,20 @@ class AccountApiController extends Controller
                             ]
                             )
                         ]);
-                    }
-                    if ($diffnum > 90 && !isset($account->license_pic)) {
+                    } else {
                         return response()->json([
-                            'result_code' => 402,
-                            'message' => '此用户已无法升级，超出注册天数']
-                            );
+                                'result_code' => 200,
+                                'upgrade_type' => array([
+                                    'role_id' => 3,
+                                    'name' => '运营商',
+                                    'amount' => $upgrade_operator_amount,
+                                ],[
+                                    'role_id' => 2,
+                                    'name' => '服务商',
+                                    'amount' => 0,
+                                ])
+                            ]);
                     }
-                    return response()->json([
-                        'result_code' => 200,
-                        'upgrade_type' => array([
-                            'role_id' => 3,
-                            'name' => '运营商',
-                            'amount' => $upgrade_operator_amount - $upgrade_supplort_amount,
-                        ],[
-                            'role_id' => 2,
-                            'name' => '服务商',
-                            'amount' => 0,
-                        ]
-                            )
-                    ]);
                 } elseif($role_id == 3) {
                     return response()->json([
                         'result_code' => 200,
